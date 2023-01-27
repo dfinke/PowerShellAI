@@ -8,7 +8,7 @@ function Get-ModerationClassification {
         .DESCRIPTION
         This function utilizes the moderation endpoint to check whether content complies with OpenAI's content policy. If content is identified that the OpenAI policy prohibits, action can be taken. For instance, the content can be filtered. For additional information about the moderation endpoint api, refer to https://beta.openai.com/docs/api-reference/moderations. For additional information about the content policy, refer to https://beta.openai.com/docs/usage-policies/content-policy
         
-        .PARAMETER $line
+        .PARAMETER prompt
         Default is OpenAIKey stored as an environmental variable. Otherwise, Api token is a secure string.
 
         .PARAMETER openAiToken
