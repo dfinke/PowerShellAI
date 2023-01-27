@@ -61,7 +61,7 @@ function copilot {
 
         $result | CreateBoxText
 
-        $userInput = CustomReadHost
+        $userInput = CustomRunCodeReadHost
 
         if ($userInput -eq 0) {
             $runnable = for ($idx = 1; $idx -lt $result.Count; $idx++) {

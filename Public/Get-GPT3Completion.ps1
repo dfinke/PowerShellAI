@@ -13,6 +13,9 @@ function Get-GPT3Completion {
         .PARAMETER model
         ID of the model to use. Defaults to 'text-davinci-003'
 
+        .PARAMETER openAiToken
+        OpenAI API Token as a secure string.  By default, $env:OpenAIKey will be utilized.
+
         .PARAMETER temperature
         The temperature used to control the model's likelihood to take risky actions. Higher values means the model will take more risks. Try 0.9 for more creative applications, and 0 (argmax sampling) for ones with a well-defined answer. Defaults to 0
 
@@ -39,6 +42,7 @@ function Get-GPT3Completion {
         [Parameter(Mandatory)]
         $prompt,
         $model = 'text-davinci-003',
+        [securestring]$openAiToken = (ConvertTo-SecureString -String $($env:OpenAIKey) -AsPlainText), 
         [ValidateRange(0, 1)]
         [int]$temperature,
         [ValidateRange(1, 2048)]
@@ -53,9 +57,11 @@ function Get-GPT3Completion {
         [Switch]$Raw
     )
 
-    if (!(Test-OpenAIKey)) {
-        throw 'You must set the $env:OpenAIKey environment variable to your OpenAI API key. https://beta.openai.com/account/api-keys'
+    if(!(Test-OpenAIKey -openAiToken $openAiToken)){
+        throw 'You must set the $env:OpenAIKey environment variable to your OpenAI API key or pass in the key as a secure string. https://beta.openai.com/account/api-keys'
     }
+
+    Get-ModerationClassification -prompt $prompt -openAiToken $openAiToken
 
     $body = [ordered]@{
         model             = $model
@@ -73,28 +79,23 @@ function Get-GPT3Completion {
     $params = @{
         Uri         = "https://api.openai.com/v1/completions" 
         Method      = 'Post' 
-        Headers     = @{Authorization = "Bearer $($env:OpenAIKey)" } 
+        Authentication = 'Bearer'
+        Token = $apiKey
         ContentType = 'application/json'
-        #body        = $body | ConvertTo-Json -Depth 5
         body        = $body
     }    
     
-    #$params["body"] = [System.Text.Encoding]::UTF8.GetBytes($json)
+    Write-Progress -Activity 'PowerShellAI' -Status 'Processing GPT repsonse. Please wait...'
     
-    if ($PSCmdlet.MyInvocation.BoundParameters["Verbose"].IsPresent) {
-        if ($env:USERNAME -eq 'finke') { $exclude = 'Headers' }
-
-        $params | 
-        ConvertTo-Json -Depth 10 | 
-        ConvertFrom-Json | 
-        Select-Object * -ExcludeProperty $exclude |
-        Format-List |
-        Out-Host
+    try{
+        $result = Invoke-RestMethod @params
+    }catch{
+        Write-Verbose -Message "StatusCode: $($_.Exception.Response.StatusCode.value__)"
+        Write-Verbose -Message "StatusDescription: $($_.Exception.Response.StatusDescription)"
+        throw "An error occurred"
     }
 
-    # Write-Progress -Activity 'PowerShellAI' -Status 'Processing GPT repsonse. Please wait...'
-
-    $result = Invoke-RestMethod @params
+    Write-Progress -Activity 'PowerShellAI' -Completed
 
     if ($Raw) {
         $result
