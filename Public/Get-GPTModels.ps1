@@ -15,6 +15,8 @@ function Get-GPTModels {
 	Get-GPTModels -NamesOnly
 	.NOTES
 	This function requires the 'OpenAIKey' environment variable to be defined before being invoked
+	Reference: https://platform.openai.com/docs/models/overview
+	Reference: https://platform.openai.com/docs/api-reference/models
 	#>
 	param(
 		[parameter()][switch]$NamesOnly,

@@ -13,6 +13,8 @@ function Get-GPTModeration {
 	Get-GPTModeration -InputText "I want to kill them."
 	.NOTES
 	This function requires the 'OpenAIKey' environment variable to be defined before being invoked
+	Reference: https://platform.openai.com/docs/guides/moderation/quickstart
+	Reference: https://platform.openai.com/docs/api-reference/moderations/create
 	#>
 	[CmdletBinding()]
 	param(
