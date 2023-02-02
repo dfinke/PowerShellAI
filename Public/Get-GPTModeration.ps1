@@ -28,12 +28,8 @@ function Get-GPTModeration {
 			"Authorization" = "Bearer $($env:OpenAIKey)"
 			"Content-Type" = "application/json"
 		}
-		$response = Invoke-RestMethod -Method POST -Uri $Endpoint -Headers $headers -Body '{"input": "'+$InputText+'"}'
-		if ($NamesOnly) {
-			return ($response.Content | ConvertFrom-Json).data.id
-		} else {
-			return ($response.Content | ConvertFrom-Json).data
-		}
+		$response = Invoke-RestMethod -Method POST -Uri $Endpoint -Headers $headers -Body "{""input"": ""$($InputText)""}"
+		return ($response.results.categories)
 	} catch {
 		Write-Error $_.Exception.Message
 	}
