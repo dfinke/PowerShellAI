@@ -3,7 +3,7 @@ function ai {
         .SYNOPSIS
         This is **Experimental** AI function
         .DESCRIPTION
-        Experimental AI function that you can pipe all sorts of things into and get back a completion
+        AI function that you can pipe all sorts of things into and get back a completion
 
         .EXAMPLE
         ai "list of planets only names as json" |

@@ -1,6 +1,6 @@
 @{
     RootModule        = 'PowerShellAI.psm1'
-    ModuleVersion     = '0.3.2'
+    ModuleVersion     = '0.3.3'
     GUID              = '081ce7b4-6e63-41ca-92a7-2bf72dbad018'
     Author            = 'Douglas Finke'
     CompanyName       = 'Doug Finke'
@@ -12,6 +12,7 @@ PowerShell GPT AI module allows to integrate with OpenAI API and access GPT-3 mo
 
     FunctionsToExport = @(
         'ai'
+        'ConvertFrom-GPTMarkdownTable'
         'copilot'
         'Disable-AIShortCutKey'
         'Enable-AIShortCutKey'

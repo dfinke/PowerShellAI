@@ -99,7 +99,7 @@ function Get-GPT3Completion {
     if ($Raw) {
         $result
     } 
-    else {
+    elseif ($result.choices) {
         $result.choices[0].text
     }
 }

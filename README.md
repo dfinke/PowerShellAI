@@ -44,6 +44,10 @@ Here are some vidoes of `PowerShellAI` in action:
 | Using PowerShell with OpenAI GPT in the console with a shortcut key | <a href="https://youtu.be/Y2fJki6r4mI"><img src="https://img.youtube.com/vi/Y2fJki6r4mI/0.jpg" width="200"> |
 | PowerShell AI - `copilot` at the command line | <a href="https://youtu.be/JrNBvEm6E7Q"><img src="https://img.youtube.com/vi/JrNBvEm6E7Q/0.jpg" width="200"> |
 | PowerShell AI - new `ai` function | <a href="https://youtu.be/-mlkUVUPZHU"><img src="https://img.youtube.com/vi/-mlkUVUPZHU/0.jpg" width="200"> |
+| New-Spreadsheet script: PowerShell + ChatGPT + Excel | <a href="https://youtu.be/Aehsgtll1CA"><img src="https://img.youtube.com/vi/Aehsgtll1CA/0.jpg" width="200"> |
+
+<br/>
+<br/>
 
 ## What it looks like
 
