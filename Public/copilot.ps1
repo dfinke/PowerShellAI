@@ -15,13 +15,16 @@ function copilot {
         copilot 'how to get ImportExcel'
 
         .EXAMPLE
-        copilot 'processes running with more thatn 700 handles'
+        copilot 'processes running with more than 700 handles'
 
         .EXAMPLE
-        copilot 'processes running with more thatn 700 handles select first 5, company and name, as json'
+        copilot 'processes running with more than 700 handles select first 5, company and name, as json'
 
         .EXAMPLE
         copilot 'for each file in the current dir list the name and length'
+        
+        .EXAMPLE
+        copilot 'Find all enabled users that have a samaccountname similar to Mazi; List SAMAccountName and DisplayName'
     #>
     param(
         [Parameter(Mandatory)]

@@ -1,3 +1,11 @@
+# v0.3.3
+- Check if `$result.choices` is not null before trying to access it. Thank you [StartAutomating](https://github.com/StartAutomating)
+- Examples added to comment based help in `copilot`. Thank you [Wes Stahler](https://github.com/stahler)
+- Add `New-Spreadsheet` script. Creates a new spreadsheet from a prompt. [Check out the code](Examples/Excel/New-Spreadsheet.ps1)
+- Added `ConvertFrom-GPTMarkdownTable` function. Converts a markdown table to a PowerShell object. [Check out the code](Public/ConvertFrom-GPTMarkdownTable.ps1)
+- Unit tests started
+- GitHub Actions in place to run CI/CD
+
 # v0.3.2
 - Added `Get-DalleImage`: Given a description, the model will return an image
 - Added `Set-DalleImageAsWallpaper`: Given a description, the model will return an image form DALL-E and set it as the wallpaper

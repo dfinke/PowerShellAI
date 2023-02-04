@@ -1,4 +1,12 @@
 Function CreateBoxText() {
+    <#
+        .SYNOPSIS
+        Creates a box of text from a string array
+
+        .EXAMPLE
+        $text = "This is a test`nof the emergency`nbroadcast system"
+        $text | CreateBoxText
+    #>
     Begin {        
         $HorizontalBoxChar = [string][char]9552
         $VerticalBoxChar = [string][char]9553

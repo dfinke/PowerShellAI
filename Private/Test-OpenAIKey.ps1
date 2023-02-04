@@ -1,6 +1,7 @@
 
 
 function Test-OpenAIKey {
+<<<<<<< HEAD
     [CmdletBinding()]
     <#
         .SYNOPSIS
@@ -29,3 +30,14 @@ function Test-OpenAIKey {
         throw 'Failed to access OpenAI api [$statusCode]. Please check your OpenAI API key (https://beta.openai.com/account/api-keys) and Organization ID (https://beta.openai.com/account/org-settings). You may also need to set the $env:OpenAIKey environment variable to your OpenAI API key or pass in the key as a secure string.'
     }
 }
+=======
+    <#
+        .SYNOPSIS
+        Tests if the OpenAIKey environment variable is set.
+
+        .EXAMPLE
+        Test-OpenAIKey        
+    #>
+    -not [string]::IsNullOrEmpty($env:OpenAIKey)
+}
+>>>>>>> origin/user/dhgibbs/mergeMainIntoContributions
