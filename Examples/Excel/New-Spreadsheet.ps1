@@ -2,13 +2,13 @@
 <#
 .SYNOPSIS
     Creates a new spreadsheet from a prompt
-.DESCRIPTION    
+.DESCRIPTION
     Creates a new spreadsheet from a prompt
-.PARAMETER prompt    
-    The prompt to use       
-.PARAMETER Raw  
+.PARAMETER prompt
+    The prompt to use
+.PARAMETER Raw
     If set, returns the raw markdown table instead of converting it to an Excel spreadsheet
-.EXAMPLE    
+.EXAMPLE
     .\New-Spreadsheet.ps1 "first 5 US presidents name, term, party"
 .EXAMPLE
     .\New-Spreadsheet.ps1 "first 5 US presidents name, term, party" -Raw
@@ -20,7 +20,7 @@ param(
 )
 
 
-$result = ai "A spreadsheet of: $($prompt)" 
+$result = ai "A spreadsheet of: $($prompt)"
 
 if ($Raw) {
     return $result

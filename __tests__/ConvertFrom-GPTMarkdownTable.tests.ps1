@@ -9,11 +9,11 @@ Describe "ConvertFrom-GPTMarkdownTable" {
 | 4 | 5 | 6 |
 "@
         $actual = ConvertFrom-GPTMarkdownTable $markdown
-        
+
         $actual | Should -Not -BeNullOrEmpty
 
         $actual.Count | Should -Be 2
-        $names = $actual[0].psobject.Properties.Name
+        $names = $actual[0].PsObject.Properties.Name
 
         $names.Count | Should -Be 3
         $names[0] | Should -Be 'p1 '
@@ -47,7 +47,7 @@ Celery | 16 | 0 | 3 | 0
         $actual | Should -Not -BeNullOrEmpty
         $actual.Count | Should -Be 6
 
-        $names = $actual[0].psobject.Properties.Name
+        $names = $actual[0].PsObject.Properties.Name
 
         $names.Count | Should -Be 5
         $names[0] | Should -Be 'Vegetable '
@@ -77,7 +77,7 @@ Celery | 16 | 0 | 3 | 0
 | John Adams | 1797-1801 | Thomas Jefferson |
 | Thomas Jefferson | 1801-1809 | Aaron Burr, George Clinton |
 | James Madison | 1809-1817 | George Clinton, Elbridge Gerry |
-| James Monroe | 1817-1825 | Daniel D. Tompkins |        
+| James Monroe | 1817-1825 | Daniel D. Tompkins |
 "@
 
         $actual = ConvertFrom-GPTMarkdownTable $markdown
@@ -85,7 +85,7 @@ Celery | 16 | 0 | 3 | 0
         $actual | Should -Not -BeNullOrEmpty
         $actual.Count | Should -Be 5
 
-        $names = $actual[0].psobject.Properties.Name
+        $names = $actual[0].PsObject.Properties.Name
 
         $names.Count | Should -Be 3
         $names[0] | Should -Be 'President '
@@ -116,7 +116,7 @@ Celery | 16 | 0 | 3 | 0
         $actual | Should -Not -BeNullOrEmpty
         $actual.Count | Should -Be 3
 
-        $names = $actual[0].psobject.Properties.Name
+        $names = $actual[0].PsObject.Properties.Name
         $names.Count | Should -Be 3
         $names[0] | Should -Be 'Column 1 '
         $names[1] | Should -Be 'Column 2 '

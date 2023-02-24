@@ -35,7 +35,6 @@ function ai {
         $fullPrompt = @"
 $($inputPrompt)
 $(($lines | Out-String).Trim())
-
 "@
 
         (Get-GPT3Completion -prompt $fullPrompt.Trim() -max_tokens $max_tokens -temperature $temperature).Trim()

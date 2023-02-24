@@ -7,7 +7,7 @@ Function CreateBoxText() {
         $text = "This is a test`nof the emergency`nbroadcast system"
         $text | CreateBoxText
     #>
-    Begin {        
+    Begin {
         $HorizontalBoxChar = [string][char]9552
         $VerticalBoxChar = [string][char]9553
         $TopLeftBoxChar = [string][char]9556
@@ -31,9 +31,9 @@ Function CreateBoxText() {
             else {
                 $lines += "{0}: {1}" -f $lineCount, $item
             }
-            
+
             $lineCount += 1
-            
+
             if ($lines[-1].Length -gt $maxLength) {
                 $maxLength = $lines[-1].Length
             }
@@ -50,5 +50,5 @@ Function CreateBoxText() {
             $VerticalBoxChar + $lines[$i] + (" " * ($maxLength - $lines[$i].Length + 2)) + $VerticalBoxChar
         }
         $BottomLeftBoxChar + ($HorizontalBoxChar * ($maxLength + 2)) + $BottomRightBoxChar
-    }   
+    }
 }

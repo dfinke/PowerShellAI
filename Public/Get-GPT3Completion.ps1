@@ -29,7 +29,7 @@ function Get-GPT3Completion {
 
         .PARAMETER stop
         A list of tokens that will cause the API to stop generating further tokens. By default, the API will stop generating when it hits one of the following tokens: ., !, or ?.
-        
+
         .EXAMPLE
         Get-GPT3Completion -prompt "What is 2%2? - please explain"
     #>
@@ -70,12 +70,12 @@ function Get-GPT3Completion {
 
     $body = $body | ConvertTo-Json -Depth 5
     $body = [System.Text.Encoding]::UTF8.GetBytes($body)
-    
+
     $result = Invoke-OpenAIAPI -Uri (Get-OpenAICompletionsURI) -Method 'Post' -Body $body
 
     if ($Raw) {
         $result
-    } 
+    }
     elseif ($result.choices) {
         $result.choices[0].text
     }

@@ -22,7 +22,7 @@ function copilot {
 
         .EXAMPLE
         copilot 'for each file in the current dir list the name and length'
-        
+
         .EXAMPLE
         copilot 'Find all enabled users that have a samaccountname similar to Mazi; List SAMAccountName and DisplayName'
     #>
@@ -36,11 +36,11 @@ function copilot {
         # Don't show prompt for choice
         [Switch]$Raw
     )
-    
+
     # $inputPrompt = $args -join ' '
-    
+
     $shell = 'powershell, just code:'
-    
+
     $promptComments = ', include comments'
     if (-not $IncludeComments) {
         $promptComments = ''
@@ -51,7 +51,7 @@ function copilot {
 
     $completion = Get-GPT3Completion -prompt $prompt -max_tokens $max_tokens -temperature $temperature -stop '```'
     $completion = $completion -split "`n"
-    
+
     if ($completion[0] -ceq 'powershell') {
         $completion = $completion[1..($completion.Count - 1)]
     }

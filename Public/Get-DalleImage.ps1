@@ -1,8 +1,8 @@
-function Get-DalleImage { 
+function Get-DalleImage {
     <#
         .SYNOPSIS
         Get a DALL-E image from the OpenAI API
-        
+
         .DESCRIPTION
         Given a description, the model will return an image
 
@@ -30,16 +30,16 @@ function Get-DalleImage {
     $targetSize = switch ($Size) {
         256 { '256x256' }
         512 { '512x512' }
-        1024 { '1024x1024' }     
+        1024 { '1024x1024' }
     }
-  
+
     $body = [ordered]@{
         prompt = $Description
         size   = $targetSize
     } | ConvertTo-Json
 
     $result = Invoke-OpenAIAPI -Uri (Get-OpenAIImagesGenerationsURI) -Body $body -Method Post
-  
+
     if ($Raw) {
         return $result
     }

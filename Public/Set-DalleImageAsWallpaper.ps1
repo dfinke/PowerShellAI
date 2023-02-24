@@ -2,7 +2,7 @@ function Set-DalleImageAsWallpaper {
     <#
         .SYNOPSIS
             Sets a DALL-E image as the desktop background
-        
+
         .EXAMPLE
         Set-DalleImageAsBackground "A picture of a cat"
 
@@ -20,7 +20,7 @@ function Set-DalleImageAsWallpaper {
     Add-Type -TypeDefinition @"
 using System;
 using System.Runtime.InteropServices;
-    
+
 public class Params
 {
     [DllImport("User32.dll",CharSet=CharSet.Unicode)]
@@ -29,15 +29,15 @@ public class Params
                                                     String lpvParam,
                                                     Int32 fuWinIni);
 }
-"@    
+"@
     $SPI_SETDESKWALLPAPER = 0x0014
     $UpdateIniFile = 0x01
     $SendChangeEvent = 0x02
-      
+
     $fWinIni = $UpdateIniFile -bor $SendChangeEvent
 
     $Image = Get-DalleImage $Description -Size $Size
-    
+
     Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name wallpaperstyle -Value 0 # centered
     Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name tilewallpaper -Value 0 # centered
 

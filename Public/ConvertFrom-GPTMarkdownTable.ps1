@@ -14,7 +14,7 @@ function ConvertFrom-GPTMarkdownTable {
         '@
 
     .EXAMPLE
-        ai 'markdown table syntax' | ConvertFrom-GPTMarkdownTable        
+        ai 'markdown table syntax' | ConvertFrom-GPTMarkdownTable
     #>
     param(
         [Parameter(ValueFromPipeline)]
@@ -22,7 +22,6 @@ function ConvertFrom-GPTMarkdownTable {
     )
 
     End {
-        
         $lines = $markdown.Trim() -split "`n"
 
         $(

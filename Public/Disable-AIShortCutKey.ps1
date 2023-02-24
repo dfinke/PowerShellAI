@@ -7,5 +7,5 @@ function Disable-AIShortCutKey {
         Disable-AIShortCutKey
     #>
 
-    Remove-PSReadLineKeyHandler -Chord Ctrl+g 
+    Remove-PSReadLineKeyHandler -Chord Ctrl+g
 }

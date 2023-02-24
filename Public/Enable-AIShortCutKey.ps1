@@ -19,11 +19,11 @@ function Enable-AIShortCutKey {
 
         $prompt = "Using PowerShell, just code: $($line)"
 
-        $output = Get-GPT3Completion $prompt -max_tokens 256 
+        $output = Get-GPT3Completion $prompt -max_tokens 256
         $output = $output -replace "`r", ""
 
         # check if output is not null
-        if ($null -ne $output) {        
+        if ($null -ne $output) {
             foreach ($str in $output) {
                 if ($null -ne $str -and $str -ne "") {
                     [Microsoft.PowerShell.PSConsoleReadLine]::AddLine()
