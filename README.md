@@ -16,7 +16,7 @@ In the PowerShell console:
 Install-Module -Name PowerShellAI
 ```
 
-Get/Create your OpenAI API key from [https://beta.openai.com/account/api-keys](https://beta.openai.com/account/api-keys) and then set `$env:OpenAIKey`.
+Get/Create your OpenAI API key from [https://beta.openai.com/account/api-keys](https://beta.openai.com/account/api-keys) and then set as *secure string* with `Set-OpenAIKey` or as *plain text* with `$env:OpenAIKey`.
 
 ## Examples
 Check out these PowerShell scripts to see how easy it is to get started with AI in PowerShell:
@@ -135,7 +135,7 @@ ai "list of planets only names as json"
     "Neptune"
 ]
 ```
- 
+
 
 ```powershell
 ai "list of planets only names as json" | ai 'convert to  xml'
@@ -153,7 +153,7 @@ ai "list of planets only names as json" | ai 'convert to  xml'
     <Planet>Uranus</Planet>
     <Planet>Neptune</Planet>
 </Planets>
-```        
+```
 
 ```powershell
 ai "list of planets only names as json" | ai 'convert to  xml' | ai 'convert to  powershell'
@@ -259,7 +259,7 @@ Try it out: `New-Spreadsheet "list of first 5 US presidents name, term"`
 
 ## Check out the Video
 
-<a href="https://youtu.be/Aehsgtll1CA"><img src="https://img.youtube.com/vi/Aehsgtll1CA/0.jpg" width="200"> 
+<a href="https://youtu.be/Aehsgtll1CA"><img src="https://img.youtube.com/vi/Aehsgtll1CA/0.jpg" width="200">
 
 # DALL-E
 
@@ -274,5 +274,5 @@ Set-DalleImageAsBackground "A picture of a cat"
 You can also use the `Get-DalleImage` function to get the image and it saves to a temp file, ready to use.
 
 ```powershell
-Get-DalleImage "A picture of a cat" 
+Get-DalleImage "A picture of a cat"
 ```
