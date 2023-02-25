@@ -9,7 +9,7 @@ Describe "Set-OpenAIKey" -Tag 'SetOpenAIKey' {
         {Set-OpenAIKey -Key ([System.Security.SecureString]::new())} | Should -Throw
     }
 
-    It "Should throw when Key parameter value is not of [SecureString] type" {
+    It "Should throw when Key parameter value is not of type [SecureString]" {
         {Set-OpenAIKey -Key 'NotSecureStringType'} | Should -Throw
     }
 
