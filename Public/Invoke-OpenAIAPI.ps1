@@ -28,15 +28,23 @@ function Invoke-OpenAIAPI {
     )
 
     if (!(Test-OpenAIKey)) {
-        throw 'Please set your OpenAI API key using Set-OpenAIKey or by configuring the $env:OpenAIKey environment variable. https://beta.openai.com/account/api-keys'
+        throw 'Please set your OpenAI API key using Set-OpenAIKey or by configuring the $env:OpenAIKey environment variable (https://beta.openai.com/account/api-keys)'
     }
 
     $params = @{
         Uri         = $Uri
         Method      = $Method
-        Headers     = @{Authorization = 'Bearer {0}' -f (Get-OpenAIKey)}
         ContentType = 'application/json'
         body        = $Body
+    }
+
+    if (($apiKey = Get-OpenAIKey) -is [SecureString]) {
+        #On PowerShell 6 and higher use Invoke-RestMethod with Authentication parameter and secure Token
+        $params['Authentication'] = 'Bearer'
+        $params['Token'] = $apiKey
+    } else {
+        #On PowerShell 5 and lower, or when using the $env:OpenAIKey environment variable, use Invoke-RestMethod with plain text header
+        $params['Headers'] = @{Authorization = "Bearer $apiKey"}
     }
 
     Invoke-RestMethod @params

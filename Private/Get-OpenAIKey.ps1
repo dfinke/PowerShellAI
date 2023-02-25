@@ -7,11 +7,11 @@ function Get-OpenAIKey {
         Get-OpenAIKey
     #>
     if ($null -ne $Script:OpenAIKey) {
-        if ($PSVersionTable.PSVersion.Major -gt 6) {
-            #On PowerShell 7 and higher use AsPlainText parameter
-            ConvertFrom-SecureString -SecureString $Script:OpenAIKey -AsPlainText
+        if ($PSVersionTable.PSVersion.Major -gt 5) {
+            #On PowerShell 6 and higher return secure string because Invoke-RestMethod supports Bearer authentication with secure Token
+            $Script:OpenAIKey
         } else {
-            #On PowerShell 6 and lower use .NET marshaling
+            #On PowerShell 5 and lower use .NET marshaling to convert the secure string to plain text
             [Runtime.InteropServices.Marshal]::PtrToStringAuto(
                 [Runtime.InteropServices.Marshal]::SecureStringToBSTR($Script:OpenAIKey)
             )
