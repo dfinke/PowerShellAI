@@ -39,7 +39,14 @@ function Get-DalleImage {
             size   = $targetSize
         } | ConvertTo-Json -Compress
 
-        $result = Invoke-OpenAIAPI -Uri (Get-OpenAIImagesGenerationsURI) -Body $body -Method Post -ErrorAction Stop
+
+        $splatParams = @{
+            Uri         = $Script:OpenAIImagesGenerationsURI
+            Body        = $body
+            Method      = 'Post'
+            ErrorAction = 'Stop'
+        }
+        $result = Invoke-OpenAIAPI @splatParams
 
         if ($Raw) {
             return $result

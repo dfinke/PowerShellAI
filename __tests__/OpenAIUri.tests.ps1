@@ -1,39 +1,41 @@
 Import-Module "$PSScriptRoot\..\PowerShellAI.psd1" -Force
 
 Describe "OpenAIUri" -Tag 'OpenAIUri' {
-    It "Should return the OpenAI URI" {
-        $actual = Get-OpenAIBaseRestURI                  
+    InModuleScope 'PowerShellAI' {
+        It "Should return the OpenAI URI" {
+            $actual = $Script:OpenAIBaseURI
 
-        $actual | Should -Be 'https://api.openai.com/v1'
-    }
+            $actual | Should -Be 'https://api.openai.com/v1'
+        }
 
-    It "Should return the OpenAI Models URI" {
-        $actual = Get-OpenAIModelsURI                  
+        It "Should return the OpenAI Models URI" {
+            $actual = $Script:OpenAIModelsURI
 
-        $actual | Should -Be 'https://api.openai.com/v1/models'
-    }
+            $actual | Should -Be 'https://api.openai.com/v1/models'
+        }
 
-    It "Should return the OpenAI Moderations URI" {
-        $actual = Get-OpenAIModerationsURI                  
+        It "Should return the OpenAI Moderations URI" {
+            $actual = $Script:OpenAIModerationsURI
 
-        $actual | Should -Be 'https://api.openai.com/v1/moderations'
-    }
-    
-    It "Should return the OpenAI Completions URI" {
-        $actual = Get-OpenAICompletionsURI                  
+            $actual | Should -Be 'https://api.openai.com/v1/moderations'
+        }
 
-        $actual | Should -Be 'https://api.openai.com/v1/completions'
-    }
+        It "Should return the OpenAI Completions URI" {
+            $actual = $Script:OpenAICompletionsURI
 
-    It "Should return the OpenAI Images Generations URI" {
-        $actual = Get-OpenAIImagesGenerationsURI                  
+            $actual | Should -Be 'https://api.openai.com/v1/completions'
+        }
 
-        $actual | Should -Be 'https://api.openai.com/v1/images/generations'
-    }
+        It "Should return the OpenAI Images Generations URI" {
+            $actual = $Script:OpenAIImagesGenerationsURI
 
-    It "Should return the OpenAI Edit URI" {
-        $actual = Get-OpenAIEditsURI                  
+            $actual | Should -Be 'https://api.openai.com/v1/images/generations'
+        }
 
-        $actual | Should -Be 'https://api.openai.com/v1/edits'
+        It "Should return the OpenAI Edit URI" {
+            $actual = $Script:OpenAIEditsURI
+
+            $actual | Should -Be 'https://api.openai.com/v1/edits'
+        }
     }
 }

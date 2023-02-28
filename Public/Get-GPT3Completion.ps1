@@ -72,7 +72,13 @@ function Get-GPT3Completion {
             ConvertTo-Json -InputObject $body -Depth 5 -Compress
         ))
 
-        $result = Invoke-OpenAIAPI -Uri (Get-OpenAICompletionsURI) -Method Post -Body $bodyJson -ErrorAction Stop
+        $splatParams = @{
+            Uri         = $Script:OpenAICompletionsURI
+            Method      = 'Post'
+            Body        = $bodyJson
+            ErrorAction = 'Stop'
+        }
+        $result = Invoke-OpenAIAPI @splatParams
 
         if ($Raw) {
             $result

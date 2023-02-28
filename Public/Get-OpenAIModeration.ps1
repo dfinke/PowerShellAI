@@ -33,7 +33,13 @@ function Get-OpenAIModeration {
             "input" = $InputText
         } | ConvertTo-Json -Compress
 
-        $response = Invoke-OpenAIAPI -Uri (Get-OpenAIModerationsURI) -Body $body -Method Post -ErrorAction Stop
+        $splatParams = @{
+            Uri         = $Script:OpenAIModerationsURI
+            Body        = $body
+            Method      = 'Post'
+            ErrorAction = 'Stop'
+        }
+        $response = Invoke-OpenAIAPI @splatParams
 
         if ($Raw) {
             $response

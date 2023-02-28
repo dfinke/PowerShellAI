@@ -30,7 +30,11 @@ function Get-OpenAIModel {
     )
 
     try {
-        $response = Invoke-OpenAIAPI -Uri (Get-OpenAIModelsURI) -ErrorAction Stop
+        $splatParams = @{
+            Uri         = $Script:OpenAIModelsURI
+            ErrorAction = 'Stop'
+        }
+        $response = Invoke-OpenAIAPI @splatParams
 
         if ($Raw) {
             $response
