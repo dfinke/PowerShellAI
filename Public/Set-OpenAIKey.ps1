@@ -1,13 +1,13 @@
 function Set-OpenAIKey {
     <#
         .SYNOPSIS
-        Set the OpenAI API Key.
+        Set the OpenAI API key.
 
         .DESCRIPTION
-        Sets the OpenAI API Key using secure string.
+        Sets the OpenAI API key using secure string.
 
         .PARAMETER Key
-        Specifies OpenAI API Key secure string.
+        Specifies OpenAI API key secure string.
         .EXAMPLE
         Set-OpenAIKey -Key (Get-Secret -Name MyOpenAIKey)
     #>
@@ -16,7 +16,7 @@ function Set-OpenAIKey {
         [Parameter(Mandatory)]
         [ValidateScript({if ($_.Length) {$true} else {throw 'OpenAIKey cannot be empty.'}})]
         [ValidateNotNullOrEmpty()]
-        [System.Security.SecureString]
+        [Security.SecureString]
         $Key
     )
 
