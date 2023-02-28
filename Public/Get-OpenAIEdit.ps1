@@ -1,30 +1,34 @@
 function Get-OpenAIEdit {
 	<#
 	.SYNOPSIS
-	Given a prompt and an instruction, the model will return an edited version of the prompt
-	
+	Given a prompt and an instruction, the model will return an edited version of the prompt.
+
 	.DESCRIPTION
 	Creates a new edit for the provided input, instruction, and parameters.
-	
+
 	.PARAMETER InputText
-	Prompt text to evaluate
-	
+	Prompt text to evaluate.
+
 	.PARAMETER Instruction
-	The instruction that tells the model how to edit the prompt
-	
+	The instruction that tells the model how to edit the prompt.
+
 	.PARAMETER model
-	ID of the model to use. You can use the text-davinci-edit-001 or code-davinci-edit-001 model with this endpoint. Default is code-davinci-edit-001 model
-	
+	ID of the model to use. You can use the text-davinci-edit-001 or code-davinci-edit-001 model with this endpoint. Default is code-davinci-edit-001 model.
+
 	.PARAMETER edits
-	How many edits to generate for the input and instruction
+	How many edits to generate for the input and instruction.
+
+    .PARAMETER Raw
+    Returns the raw JSON response from the API.
+
 	.EXAMPLE
-	Get-OpenAIEdit -InputText "What day of the wek is it?" -Instruction "Fix the spelling mistakes"
-	
+	Get-OpenAIEdit -InputText "What day of the wek is it?" -Instruction "Fix the spelling mistakes".
+
 	.NOTES
-	This function requires the 'OpenAIKey' environment variable to be defined before being invoked
+	Before calling this function the OpenAI key must be set with Set-OpenAIKey function or with the 'OpenAIKey' environment variable.
 	Reference: https://platform.openai.com/docs/guides/edits/quickstart
 	Reference: https://platform.openai.com/docs/api-reference/edits
-	#>	
+	#>
 	[CmdletBinding()]
 	param(
 		[Parameter(Mandatory = $true, ValueFromPipeline = $true)]
@@ -44,7 +48,7 @@ function Get-OpenAIEdit {
 	)
 
 	begin {
-		$pipelineInput = [System.Collections.Generic.List[Object]]::new()
+		$pipelineInput = [Collections.Generic.List[Object]]::new()
 	}
 
 	process {
@@ -52,28 +56,31 @@ function Get-OpenAIEdit {
 	}
 
 	end {
-		if (-not $pipelineInput){
-			$inputBody = $InputText
-		} else {
-			$inputBody = $pipelineInput | Out-String
-		}
+		try {
+			if (-not $pipelineInput){
+				$inputBody = $InputText
+			} else {
+				$inputBody = $pipelineInput | Out-String
+			}
 
-		$body = @{
-			"model"       = $model
-			"temperature" = $temperature
-			"top_p"       = $top_p
-			"input"       = $inputBody
-			"instruction" = $Instruction
-			"n"           = $numberOfEdits
-		} | ConvertTo-Json
-	
-		$response = Invoke-OpenAIAPI -Uri (Get-OpenAIEditsURI) -Method Post -Body $body
-	
-		if ($Raw) {
-			$response
-		}
-		else {
-			$response.choices | Select-Object text
+			$body = @{
+				"model"       = $model
+				"temperature" = $temperature
+				"top_p"       = $top_p
+				"input"       = $inputBody
+				"instruction" = $Instruction
+				"n"           = $numberOfEdits
+			} | ConvertTo-Json -Compress
+
+			$response = Invoke-OpenAIAPI -Uri (Get-OpenAIEditsURI) -Method Post -Body $body -ErrorAction Stop
+
+			if ($Raw) {
+				$response
+			} else {
+				$response.choices | Select-Object -Property text
+			}
+		} catch {
+			Write-Error -ErrorRecord $_ -ErrorAction $ErrorActionPreference
 		}
 	}
 }
