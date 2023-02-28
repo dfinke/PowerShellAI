@@ -1,13 +1,13 @@
 Function CreateBoxText() {
     <#
         .SYNOPSIS
-        Creates a box of text from a string array
+        Creates a box of text from a string array.
 
         .EXAMPLE
         $text = "This is a test`nof the emergency`nbroadcast system"
         $text | CreateBoxText
     #>
-    Begin {        
+    Begin {
         $HorizontalBoxChar = [string][char]9552
         $VerticalBoxChar = [string][char]9553
         $TopLeftBoxChar = [string][char]9556
@@ -21,19 +21,17 @@ Function CreateBoxText() {
     }
 
     Process {
-
         $item = $_.Trim()
 
         if (![string]::IsNullOrEmpty($item)) {
-            If ($lineCount -eq 0) {
-                $lines += "Q: " + $item
+            if ($lineCount -eq 0) {
+                $lines += 'Q: {0}' -f $item
+            } else {
+                $lines += '{0}: {1}' -f $lineCount, $item
             }
-            else {
-                $lines += "{0}: {1}" -f $lineCount, $item
-            }
-            
+
             $lineCount += 1
-            
+
             if ($lines[-1].Length -gt $maxLength) {
                 $maxLength = $lines[-1].Length
             }
@@ -41,14 +39,14 @@ Function CreateBoxText() {
     }
 
     End {
-        $TopLeftBoxChar + ($HorizontalBoxChar * ($maxLength + 2)) + $TopRightBoxChar
-        For ($i = 0; $i -lt $lineCount; $i += 1) {
+        $horizontalBoxLine = $HorizontalBoxChar * ($maxLength + 2)
+        '{0}{1}{2}' -f $TopLeftBoxChar, $horizontalBoxLine,  $TopRightBoxChar
+        for ($i = 0; $i -lt $lineCount; $i += 1) {
             if ($i -eq 1) {
-                $VerticalBoxChar + ($HorizontalBoxChar * ($maxLength + 2)) + $VerticalBoxChar
+                '{0}{1}{2}' -f $VerticalBoxChar, $horizontalBoxLine, $VerticalBoxChar
             }
-
-            $VerticalBoxChar + $lines[$i] + (" " * ($maxLength - $lines[$i].Length + 2)) + $VerticalBoxChar
+            '{0}{1}{2}{3}' -f $VerticalBoxChar, $lines[$i], (' ' * ($maxLength - $lines[$i].Length + 2)), $VerticalBoxChar
         }
-        $BottomLeftBoxChar + ($HorizontalBoxChar * ($maxLength + 2)) + $BottomRightBoxChar
-    }   
+        '{0}{1}{2}' -f $BottomLeftBoxChar, $horizontalBoxLine, $BottomRightBoxChar
+    }
 }
