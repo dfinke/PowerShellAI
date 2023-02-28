@@ -1,8 +1,8 @@
-function Get-OpenAIModerationsURI {
+function Get-OpenAIModelsURI {
     <#
         .SYNOPSIS
-        Base url for OpenAI Moderations API.
+        Base url for OpenAI Models API.
     #>
 
-    (Get-OpenAIBaseRestURI) + '/moderations'
+    (Get-OpenAIBaseRestURI) + '/models'
 }
