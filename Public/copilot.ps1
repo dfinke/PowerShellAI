@@ -84,7 +84,7 @@ function copilot {
                     $line
                 }
 
-                Invoke-Expression -Command [string]::Join("`n", $runnable)
+                Invoke-Expression -Command ([string]::Join("`n", $runnable))
             }
             else {
                 'Not running'
