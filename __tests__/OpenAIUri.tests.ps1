@@ -2,27 +2,27 @@ Import-Module "$PSScriptRoot\..\PowerShellAI.psd1" -Force
 
 Describe "OpenAIUri" -Tag 'OpenAIUri' {
     InModuleScope 'PowerShellAI' {
-        It "Should return the OpenAI URI" {
+        It "OpenAI URI is valid" {
             $Script:OpenAIBaseURI | Should -BeExactly 'https://api.openai.com/v1'
         }
 
-        It "Should return the OpenAI Models URI" {
+        It "OpenAI Models URI is valid" {
             $Script:OpenAIModelsURI | Should -BeExactly 'https://api.openai.com/v1/models'
         }
 
-        It "Should return the OpenAI Moderations URI" {
+        It "OpenAI Moderations URI is valid" {
             $Script:OpenAIModerationsURI | Should -BeExactly 'https://api.openai.com/v1/moderations'
         }
 
-        It "Should return the OpenAI Completions URI" {
+        It "OpenAI Completions URI is valid" {
             $Script:OpenAICompletionsURI | Should -BeExactly 'https://api.openai.com/v1/completions'
         }
 
-        It "Should return the OpenAI Images Generations URI" {
+        It "OpenAI Images Generations URI is valid" {
             $Script:OpenAIImagesGenerationsURI | Should -BeExactly 'https://api.openai.com/v1/images/generations'
         }
 
-        It "Should return the OpenAI Edit URI" {
+        It "OpenAI Edit URI is valid" {
             $Script:OpenAIEditsURI | Should -BeExactly 'https://api.openai.com/v1/edits'
         }
     }
