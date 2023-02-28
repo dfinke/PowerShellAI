@@ -27,7 +27,7 @@ Describe "Get-OpenAIKey" -Tag 'GetOpenAIKey' {
             Get-OpenAIKey | Should -BeExactly $env:OpenAIKey
         }
 
-        It 'Should return value of type [String] on PowerShell 5 and lower' -Skip:($PSVersionTable.PSVersion.Major -gt 5) {
+        It 'Should return value of type [String] set with Set-OpenAIKey on PowerShell 5 and lower' -Skip:($PSVersionTable.PSVersion.Major -gt 5) {
             Set-OpenAIKey -Key (ConvertTo-SecureString -String $secureStringKey -AsPlainText -Force)
             Get-OpenAIKey | Should -BeOfType 'System.String'
         }
@@ -37,7 +37,7 @@ Describe "Get-OpenAIKey" -Tag 'GetOpenAIKey' {
             Get-OpenAIKey | Should -BeExactly $secureStringKey
         }
 
-        It 'Should return value of type [SecureString] on PowerShell 6 and higher' -Skip:($PSVersionTable.PSVersion.Major -lt 6) {
+        It 'Should return value of type [SecureString] set with Set-OpenAIKey on PowerShell 6 and higher' -Skip:($PSVersionTable.PSVersion.Major -lt 6) {
             Set-OpenAIKey -Key (ConvertTo-SecureString -String $secureStringKey -AsPlainText -Force)
             Get-OpenAIKey | Should -BeOfType 'System.Security.SecureString'
         }
@@ -47,7 +47,7 @@ Describe "Get-OpenAIKey" -Tag 'GetOpenAIKey' {
             Get-OpenAIKey | ConvertFrom-SecureString -AsPlainText | Should -BeExactly $secureStringKey
         }
 
-        It 'OpenAI key configured with Set-OpenAIKey has priority over $env:OpenAIKey' {
+        It 'OpenAI key set with Set-OpenAIKey has priority over $env:OpenAIKey' {
             $env:OpenAIKey = $environmentVariableKey
             Set-OpenAIKey -Key (ConvertTo-SecureString -String $secureStringKey -AsPlainText -Force)
             if ($PSVersionTable.PSVersion.Major -gt 5) {
