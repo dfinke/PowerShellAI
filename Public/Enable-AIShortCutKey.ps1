@@ -2,7 +2,10 @@ function Enable-AIShortCutKey {
     <#
         .SYNOPSIS
         Enable the Ctrl+g shortcut key for getting completions
-
+        .DESCRIPTION
+        Running this command will make 'CTRL+G' convert a prompt suggestion into code you could run.
+        .LINK
+        Disable-AIShortcutKey
         .EXAMPLE
         Enable-AIShortCutKey
     #>

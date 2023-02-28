@@ -2,17 +2,17 @@ function ConvertFrom-GPTMarkdownTable {
     <#
     .SYNOPSIS
         Converts a markdown table to a PowerShell object.
-
+    .DESCRIPTION
+        Converts From a markdown table to a series of PowerShell objects.
     .PARAMETER Markdown
         The markdown table to convert.
     .EXAMPLE
-        ConvertFrom-GPTMarkdownTable -Markdown @'
+        ConvertFrom-GPTMarkdownTable -Markdown '
         | Name | Value |
         | ---- | ----- |
         | foo  | bar   |
         | baz  | qux   |
-        '@
-
+        '
     .EXAMPLE
         ai 'markdown table syntax' | ConvertFrom-GPTMarkdownTable        
     #>

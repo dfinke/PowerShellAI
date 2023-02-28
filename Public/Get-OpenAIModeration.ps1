@@ -9,6 +9,9 @@ function Get-OpenAIModeration {
     
     .PARAMETER InputText
     Prompt text to evaluate
+
+    .PARAMETER Raw
+    Returns the raw JSON response from the API
     
     .EXAMPLE
     Get-OpenAIModeration -InputText "I want to kill them."

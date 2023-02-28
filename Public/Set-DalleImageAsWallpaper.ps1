@@ -2,7 +2,8 @@ function Set-DalleImageAsWallpaper {
     <#
         .SYNOPSIS
             Sets a DALL-E image as the desktop background
-        
+        .DESCRIPTION
+            Sets a DALL-E image as the Windows desktop background
         .EXAMPLE
         Set-DalleImageAsBackground "A picture of a cat"
 
@@ -16,6 +17,11 @@ function Set-DalleImageAsWallpaper {
         [ValidateSet('256', '512', '1024')]
         $Size = 256
     )
+
+    if ($IsMacOS -or $IsLinux) {
+        Write-Error "Can only change the wallpaper on Windows"
+        return
+    }
 
     Add-Type -TypeDefinition @"
 using System;
