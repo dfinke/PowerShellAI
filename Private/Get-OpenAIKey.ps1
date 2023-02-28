@@ -1,7 +1,15 @@
 function Get-OpenAIKey {
     <#
         .SYNOPSIS
-        Gets the OpenAIKey module scope variable or environment variable.
+        Gets the OpenAI key from module scope variable or environment variable.
+
+        .DESCRIPTION
+        The Get-OpenAIKey gets an OpenAI key from module scope variable or environment variable.
+        The key set with Set-OpenAIKey has precedence over $env:OpenAIKey.
+
+        Return value type is:
+        [String]       - when running on PowerShell 5 and lower, or when using environment variable ($env:OpenAIKey) to store the OpenAI key
+        [SecureString] - when running on PowerShell 6 and higher, and when OpenAI key was set with Set-OpenAIKey function
 
         .EXAMPLE
         Get-OpenAIKey
