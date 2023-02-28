@@ -39,13 +39,13 @@ Function CreateBoxText() {
     }
 
     End {
-        $horizontalBoxLine = $HorizontalBoxChar * ($maxLength + 2)
+        $horizontalBoxLine = $HorizontalBoxChar * $maxLength
         '{0}{1}{2}' -f $TopLeftBoxChar, $horizontalBoxLine,  $TopRightBoxChar
         for ($i = 0; $i -lt $lineCount; $i += 1) {
             if ($i -eq 1) {
                 '{0}{1}{2}' -f $VerticalBoxChar, $horizontalBoxLine, $VerticalBoxChar
             }
-            '{0}{1}{2}{3}' -f $VerticalBoxChar, $lines[$i], (' ' * ($maxLength - $lines[$i].Length + 2)), $VerticalBoxChar
+            '{0}{1}{2}{3}' -f $VerticalBoxChar, $lines[$i], (' ' * ($maxLength - $lines[$i].Length)), $VerticalBoxChar
         }
         '{0}{1}{2}' -f $BottomLeftBoxChar, $horizontalBoxLine, $BottomRightBoxChar
     }
