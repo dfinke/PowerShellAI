@@ -1,11 +1,11 @@
 function Get-OpenAIBaseRestURI {
     <#
-        .Synopsis
-        Base url for OpenAIBase API
-        
-        .Example
+        .SYNOPSIS
+        Base url for OpenAIBase API.
+
+        .EXAMPLE
         Invoke-OpenAIAPI ((Get-GHBaseRestURI)+'/models')
     #>
-    
+
     'https://api.openai.com/v1'
 }
