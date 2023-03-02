@@ -1,7 +1,7 @@
 function Enable-AIShortCutKey {
     <#
         .SYNOPSIS
-            Enable a shortcut key for getting completions
+            Enable a shortcut key for getting completions.
         .DESCRIPTION
             Enables a shortcut key for getting completions.
 
@@ -9,29 +9,33 @@ function Enable-AIShortCutKey {
 
             If not in Visual Studio Code, the ShortcutKey will default to 'CTRL+G'
             In Visual Studio Code, the ShortcutKey will default to 'ALT+G'
+        .PARAMETER ShortcutKey
+            Provide custom shortcut key.
         .EXAMPLE
-            # Enables the shortcut key.  Outside of VSCode, CTRL+G.  Inside of VSCode, ALT+G.
+            # Enables the shortcut key. Outside of VSCode, CTRL+G. Inside of VSCode, ALT+G.
             Enable-AIShortCutKey
         .EXAMPLE
+            # Enables custom shortcut key CTRL+ALT+P.
             Enable-AIShortCutKey -ShortcutKey "CTRL+ALT+P"
     #>
     param(
-    [string]
-    $ShortcutKey = $(
-        # In Visual Studio Code, CTRL+G is "goto",
-        if ((Get-Process -id $pid).Parent.ProcessName -eq 'code') {
-            "ALT+G" # so we'll use ALT+G by default.
-        } else {
-            "CTRL+G" # If we're not running in code, use CTRL+G by default
-        }
-    )
+        [string]
+        $ShortcutKey = $(
+            # In Visual Studio Code, CTRL+G is "goto",
+            if ((Get-Process -id $pid).Parent.ProcessName -eq 'code') {
+                "ALT+G" # so we'll use ALT+G by default.
+            } else {
+                "CTRL+G" # If we're not running in code, use CTRL+G by default
+            }
+        )
     )
 
-    Set-PSReadLineKeyHandler -Key $ShortcutKey `
-        -BriefDescription OpenAICli `
-        -LongDescription "Calls Open AI on the current buffer" `
-        -ScriptBlock {
-        param($key, $arg)
+    $splatParams = @{
+        Key                 = 'Ctrl+g'
+        BriefDescription    = 'OpenAICli'
+        LongDescription     = 'Calls Open AI on the current buffer'
+        ScriptBlock         = {
+            param($key, $arg)
 
             try {
                 $line = $null
