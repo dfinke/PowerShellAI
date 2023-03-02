@@ -1,7 +1,7 @@
 function Disable-AIShortCutKey {
     <#
         .SYNOPSIS
-            Disable the shortcut key for getting completions
+            Disable the shortcut key for getting completions.
         .DESCRIPTION
             Disable the shortcut key for completing suggestions.
         .EXAMPLE
