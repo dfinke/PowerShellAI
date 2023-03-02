@@ -1,3 +1,23 @@
+# PowerShellAI
+## A User-Friendly Module for OpenAI's GPT-3 and DALL-E API
+
+`PowerShellAI` is a ***community-maintained*** PowerShell module designed to simplify the use of OpenAI's GPT-3 language model and DALL-E API. It empowers users to effortlessly build complex language-powered applications, regardless of their level of experience.
+
+`PowerShellAI` is cross-platform and runs seamlessly on Windows, Linux, and MacOS.
+
+Getting started with `PowerShellAI` is easy. Simply install the module from the gallery using the following command: 
+
+`Install-Module -Name PowerShellAI`
+
+The repository includes a comprehensive list of functions that enable users to interact with GPT-3 and DALL-E, along with examples of how to use them at the command line or in scripts. 
+
+The video demos showcase the many possibilities of the module and how you can leverage its functions to best suit your needs.
+
+Whether you're a seasoned developer or just getting started with AI, `PowerShellAI` is a valuable tool that can help you unlock the full potential of OpenAI's GPT-3 and DALL-E.
+
+<br/>
+<br/>
+
 >![](./media/AIReplace.png)
 
 # Unleash the Power of Artificial Intelligence with PowerShell
@@ -32,6 +52,7 @@ Check out these PowerShell scripts to see how easy it is to get started with AI 
 | copilot | Makes the request to GPT, parses the response and displays it in a box and then prompts the user to run the code or not. | [copilot.ps1](./Public/copilot.ps1)
 | Get-DalleImage | Get an image from the OpenAI DALL-E API | [Get-DalleImage.ps1](./Public/Get-DalleImage.ps1)
 | Set-DalleImageAsWallpaper | Set the image from the OpenAI DALL-E API as the wallpaper | [Set-DalleImageAsWallpaper.ps1](./Public/Set-DalleImageAsWallpaper.ps1)
+| Invoke-AIErrorHelper | Helper function let ChatGPT add more info about errors | [Invoke-AIErrorHelper.ps1](./Public/Invoke-AIErrorHelper.ps1)
 
 <br/>
 
@@ -197,6 +218,14 @@ Thank you to [Clem Messerli](https://twitter.com/ClemMesserli/status/16163122382
 ![Alt text](media/Copilot-GPT-At-The-CLI.png)
 
 Check out the [video of `copilot` in action]()
+
+# Ask ChatGPT for help with an error message
+
+If you get an error after executing some PowerShell. You can now ask ChatGPT for help. The new `Invoke-AIErrorInsights` function will take the last error message and ask ChatGPT for help.
+
+You can also use the alias `ieh`.
+
+![Alt text](media/AIErrorInsights.png)
 
 # Code editing example
 

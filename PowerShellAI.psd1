@@ -20,6 +20,7 @@ The PowerShell AI module integrates with the OpenAI API and let's you easily acc
         'Get-GPT3Completion'
         'Get-OpenAIModel'
         'Get-OpenAIModeration'
+        'Invoke-AIErrorHelper'
         'Invoke-OpenAIAPI'
         'Set-DalleImageAsWallpaper'
         'Set-OpenAIKey'
@@ -35,6 +36,7 @@ The PowerShell AI module integrates with the OpenAI API and let's you easily acc
 
     AliasesToExport   = @(
         'gpt'
+        'ieh'
     )
 
     PrivateData       = @{

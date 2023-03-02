@@ -1,6 +1,14 @@
 # v0.4.7
-- Thank you [Kris Borowinski](https://github.com/kborowinski)
+
+Thank you to the community for your contributions!
+- [Kris Borowinski](https://github.com/kborowinski)
     - On PS 6 and higher use Invoke-RestMethod with secure Token
+- [Shaun Lawrie](https://twitter.com/shaun_lawrie)
+    - Add error insights by [Shaun Lawrie](https://twitter.com/shaun_lawrie)
+- [James Brundage](https://twitter.com/JamesBru)
+    - PowerShellAI enhancement for short cut key by @StartAutomating 
+- [Adam Bacon](https://twitter.com/psdevuk)
+    - Add functions and prompts for use with ChatGPT
 
 # v0.4.6
 - Thank you to [Pieter Jan Geutjens](https://github.com/pjgeutjens)
