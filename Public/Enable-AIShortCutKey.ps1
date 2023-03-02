@@ -31,7 +31,7 @@ function Enable-AIShortCutKey {
     )
 
     $splatParams = @{
-        Key                 = 'Ctrl+g'
+        Key                 = $ShortcutKey
         BriefDescription    = 'OpenAICli'
         LongDescription     = 'Calls Open AI on the current buffer'
         ScriptBlock         = {
