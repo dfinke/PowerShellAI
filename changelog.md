@@ -1,3 +1,7 @@
+# v0.5.0
+
+- Updated to use new `gpt-3.5-turbo` model
+
 # v0.4.8
 Thank you to the community for your contributions!
 
