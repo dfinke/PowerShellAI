@@ -38,7 +38,7 @@ function Get-GPT3Completion {
     param(
         [Parameter(Mandatory)]
         $prompt,
-        $model = 'text-davinci-003',
+        $model = 'gpt-3.5-turbo',
         [ValidateRange(0, 2)]
         [decimal]$temperature = 0.0,
         [ValidateRange(1, 2048)]
