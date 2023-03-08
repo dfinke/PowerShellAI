@@ -1,6 +1,7 @@
 ﻿#Requires -Modules PowerShellAI
  
-#Marv is a quirky chatbot, you can get all types of weird and wonderful answer from Marv, just ask away using the Question parameter 
+#Marv is a quirky chatbot, you can get all types of weird and wonderful answer from Marv, just ask away using the Question parameter
+#Example Get-AIResponse -Question "What does HTTP stand for"
 Function Get-AIResponse {
 param(
     [Parameter(Mandatory)]
@@ -11,6 +12,7 @@ return $result
 }
 
 #Quickly get some brainstorming ideas for anything, just supply what you want to brainstorm and you will get back the ideas
+#Example New-AIBrainStorm -BrainStorm "Fun things to do with the family"
 Function New-AIBrainStorm {
 param(
     [Parameter(Mandatory)]
@@ -21,6 +23,7 @@ return $result
 }
 
 #Got no food in the kitchen bar a few items? Then maybe you could create somethin amazing from this with an AI recipe
+#Example New-AIReceipe -Ingredients "apple sugar bannana milk"
 Function New-AIRecipe {
 param(
     [Parameter(Mandatory)]
@@ -31,6 +34,7 @@ return $result
 }
 
 #Need to get the kids to bed but do not have a bed-time story to hand? Well just generate a story of any genre and topic using this function
+#Example New-AIStory -Topic "Chicken Pig" -sentences 20 -Genre "comedy"
 Function New-AIStory {
 param(
     [Parameter(Mandatory)]
@@ -52,6 +56,7 @@ return $result
 }
 
 #Feeling like you need to chat to someone but do not have anyone? Well now you do, have real-life-like conversations with AI
+#Example New-AIChat "Where should I take my dog a walk today?"
 Function New-AIChat {
 param(
     [Parameter(Mandatory)]
@@ -62,6 +67,7 @@ return $result
 }
 
 #Got an exam on something and you need to prep some study notes? Do not worry just use this module
+#Example New-AIStudyNotes -NumberOfPoints 7 -Studying "Ancient Rome"
 Function New-AIStudyNotes {
 param(
     [Parameter(Mandatory)]
@@ -74,6 +80,7 @@ return $result
 }
 
 #Maybe you want to cheat at your local pub quiz. Get the truthful answer to any truthful event. This will need to be prior to 2021 as the Queen of England is still alive apparently.
+#Example Get-AIanswer -Question "What is longer a imperial mile or a metri kilometer"
 Function Get-AIanswer {
 param(
     [Parameter(Mandatory)]
@@ -85,6 +92,7 @@ return $result
 }
 
 #Maybe you are not down with the kids these days and do not understand all the grammatical errors they write. Now you can decode badly typed English into proper English
+#Example Get-AIGrammarCheck -Text "Wassup mush wanna grab some bevies later?"
 Function Get-AIGrammarCheck {
 param(
     [Parameter(Mandatory)]
@@ -95,6 +103,7 @@ return $result
 }
 
 #You got an idea for a product, but do not know how to sell the idea? Well just use this hand-dandy function
+#Example Get-AIProductAdvert -ProductDescription "Alien Grow" -Tags "replace, hair, manly, speedy, growth, super"
 Function Get-AIProductAdvert {
 param(
     [Parameter(Mandatory)]
@@ -107,6 +116,7 @@ return $result
 }
 
 #Need a web color code in a hurry, you know what the color you want is but just do not know the annoying code. Boom I got your back with this function
+#Example Get-AIColorCode -DescribeColor "the same color as rust on metal"
 Function Get-AIColorCode {
 param(
     [Parameter(Mandatory)]
@@ -116,6 +126,7 @@ $result = ai "The CSS code for a color like $($DescribeColor):"
 return $result
 }
 
+#Your new Powershell buddy 
 Function Get-AIPowershell {
 param(
     [Parameter(Mandatory)]
