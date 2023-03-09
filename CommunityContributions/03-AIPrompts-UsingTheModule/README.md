@@ -1,3 +1,8 @@
+# What Can I Do With This Module?
+ Yes I asked myself that same question. For me this was like having the internet for the very first time. You could ask it something and you get back an answer. Okay, I hear you asking so what makes OpenAI so great then, if it is like a google but one answer instead of a billion. Well my Powershell friend the answer is simple, you need to read the examples here:- https://platform.openai.com/examples 
+ So after reading these examples and realising the power comes from the prompt you give it, I thought why not make this super-easy and build these as mini-commands you can use
+
+
 
 |Function Name|Parameters|Prompt|
 |:---|:---|:---|

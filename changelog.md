@@ -1,3 +1,20 @@
+# v0.4.9
+
+- For `Get-OpenAIUsage`
+    - Default start and end date
+    - Added switch $OnlyLineItems
+
+# v0.4.8
+Thank you to the community for your contributions!
+
+- [Mikey Bronowski](https://github.com/MikeyBronowski)
+    - Update README with fixes and clarifications
+- Usage by @stefanstranger in https://github.com/dfinke/PowerShellAI/pull/69
+
+- [Stefan Stranger](https://github.com/stefanstranger)
+    - Added functions to get OpenAI Dashboard information and more
+    - Demos in the [Polyglot Interactive Notebook](CommunityContributions/05-Settings/Settings.ipynb)
+
 # v0.4.7
 
 Thank you to the community for your contributions!
