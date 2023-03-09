@@ -4,14 +4,14 @@ function CustomReadHost {
         Custom Read-Host function that allows for a default value and a prompt message.
 
         .EXAMPLE
-        CustomReadHost 
+        CustomReadHost
     #>
 
-    $Yes = New-Object System.Management.Automation.Host.ChoiceDescription '&Yes', 'Yes, run the code'    
-    $no = New-Object System.Management.Automation.Host.ChoiceDescription '&No', 'No, do not run the code'
+    $yes = [Management.Automation.Host.ChoiceDescription]::new('&Yes', 'Yes, run the code')
+    $no = [Management.Automation.Host.ChoiceDescription]::new('&No', 'No, do not run the code')
 
-    $options = [System.Management.Automation.Host.ChoiceDescription[]]($Yes, $no)
+    $options = [Management.Automation.Host.ChoiceDescription[]]($yes, $no)
 
     $message = 'Run the code?'
-    $host.ui.PromptForChoice($null, $message, $options, 1)
+    $Host.UI.PromptForChoice($null, $message, $options, 1)
 }
