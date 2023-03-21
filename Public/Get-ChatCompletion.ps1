@@ -1,6 +1,6 @@
 <#
 
-NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE 
+NOTE NOTE NOTE NOTE NOTE NOTE NOTE NOTE
 
 This script is a work in progress.
 
@@ -31,11 +31,11 @@ More to come....
 $Script:messages
 $Script:timeStamp = $null
 
-if ($IsWindows) {
-    $Script:chatSessionPath = Join-Path $env:APPDATA 'PowerShellAI/ChatGPT'
+$Script:chatSessionPath = if ($PSVersionTable.PSVersion.Major -lt 6 -or $IsWindows) {
+    Join-Path $env:APPDATA 'PowerShellAI/ChatGPT'
 }
 else {
-    $Script:chatSessionPath = Join-Path $env:HOME '~/PowerShellAI/ChatGPT'
+    Join-Path $env:HOME '~/PowerShellAI/ChatGPT'
 }
 
 $Script:chatInProgress = $false
@@ -61,9 +61,9 @@ function Stop-Chat {
 
 function Get-ChatHistory {
     if (Test-ChatInProgress) {
-        if ($Script:messages.Count -gt 0) {            
+        if ($Script:messages.Count -gt 0) {
             foreach ($message in $Script:messages) {
-                [PSCustomObject]$message             
+                [PSCustomObject]$message
             }
         }
         else {
@@ -72,11 +72,11 @@ function Get-ChatHistory {
     }
     else {
         "No chat in progress. Use `Chat <content>` or `New-Chat <theme>` to start a new chat session."
-    }    
+    }
 }
 
 function Get-ChatInProgress {
-    if (Test-ChatInProgress) {        
+    if (Test-ChatInProgress) {
         Get-ChatHistory
     }
     else {
@@ -94,14 +94,14 @@ function Set-TimeStamp {
     }
     else {
         $Script:timeStamp = Get-Date -Format 'yyyyMMddHHmmss'
-    }    
+    }
 }
 
 function New-Chat {
     param(
         $prompt
     )
-    
+
     if ($null -ne $Script:timeStamp) {
         Export-ChatSession
     }
@@ -111,7 +111,7 @@ function New-Chat {
 
     Set-TimeStamp
 
-    if ($null -ne $prompt) {    
+    if ($null -ne $prompt) {
         New-ChatMessage -Role system -Content $prompt
     }
 }
@@ -134,7 +134,7 @@ function Import-ChatSession {
     param(
         [Parameter(ValueFromPipelineByPropertyName)]
         [Alias('FullName')]
-        $Path        
+        $Path
     )
 
     End {
@@ -155,21 +155,21 @@ function Get-ChatSession {
 
     if (Test-Path $Script:chatSessionPath) {
         Get-ChildItem -Path $Script:chatSessionPath *.xml | Where-Object { $_.Name -match $Name }
-    }   
+    }
 }
 
 function Get-ChatSessionContent {
     param(
         [Alias('FullName')]
-        [Parameter(ValueFromPipelineByPropertyName)]        
-        $Path        
+        [Parameter(ValueFromPipelineByPropertyName)]
+        $Path
     )
 
     Process {
         (Import-Clixml -Path $Path) | ForEach-Object {
             $SessionName = (Split-Path -Leaf $Path) -replace '-ChatGPTSession.xml', ''
             [PSCustomObject]$_ | Add-Member -PassThru -MemberType NoteProperty -Name SessionName -Value $SessionName
-            
+
         } | Select-Object SessionName, Role, Content
     }
 }
@@ -183,10 +183,10 @@ function Invoke-ChatCompletion {
         [switch]$FastDisplay
     )
 
-    if (!(Test-ChatInProgress)) {     
+    if (!(Test-ChatInProgress)) {
         New-Chat
     }
-    
+
     Write-ChatResponse -Role user -Content $prompt
 }
 
@@ -195,8 +195,8 @@ function Import-ChatMessages {
         [Parameter(ValueFromPipelineByPropertyName)]
         $Content,
         [Parameter(ValueFromPipelineByPropertyName)]
-        [ValidateSet('user', 'system', 'assistant')]        
-        $Role 
+        [ValidateSet('user', 'system', 'assistant')]
+        $Role
     )
 
     Begin {
@@ -219,7 +219,7 @@ function Import-ChatMessages {
 
 }
 
-function Import-ChatAssistantMessages {    
+function Import-ChatAssistantMessages {
     param(
         [Parameter(ValueFromPipelineByPropertyName, ValueFromPipeline)]
         $Content
@@ -233,7 +233,7 @@ function Import-ChatAssistantMessages {
     }
 }
 
-function Import-ChatUserMessages {    
+function Import-ChatUserMessages {
     param(
         [Parameter(ValueFromPipelineByPropertyName, ValueFromPipeline)]
         $Content
@@ -260,7 +260,7 @@ function New-ChatMessage {
         @{
             role    = $Role
             content = $Content
-        }        
+        }
     )
 
     Export-ChatSession
@@ -271,10 +271,10 @@ function Get-OpenAIChatPayload {
         $model = 'gpt-3.5-turbo',
         $temperature = 0.0,
         $max_tokens = 256,
-        $top_p = 1.0,        
-        $frequency_penalty = 0,        
+        $top_p = 1.0,
+        $frequency_penalty = 0,
         $presence_penalty = 0,
-        $stop    
+        $stop
     )
 
     $payLoad = [ordered]@{
@@ -297,28 +297,28 @@ function Write-ChatResponse {
         [ValidateSet('user', 'system')]
         $Role,
         [Parameter(Mandatory)]
-        $Content        
+        $Content
     )
- 
+
     New-ChatMessage -Role $Role -Content $prompt
 
     $body = Get-OpenAIChatPayload
     $result = Invoke-OpenAIAPI -Uri (Get-OpenAIChatCompletionUri) -Method 'Post' -Body $body
 
-    if (!$ExcludeResponseFromBeingSaved) {    
+    if (!$ExcludeResponseFromBeingSaved) {
         New-ChatMessage -Role assistant -Content $result.choices[0].message.content
     }
 
     if ($Raw) {
         $result
-    } 
+    }
     elseif ($result.choices) {
         $content = $result.choices[0].message.content
 
         if ($FastDisplay) {
             Write-Host $content
         }
-        else {            
+        else {
             $content.ToCharArray() | ForEach-Object { Write-Host -NoNewline $_; Start-Sleep -Milliseconds 1 }
         }
     }
@@ -356,7 +356,7 @@ function Get-ChatCompletion {
 
         .PARAMETER stop
         A list of tokens that will cause the API to stop generating further tokens. By default, the API will stop generating when it hits one of the following tokens: ., !, or ?.
-        
+
         .EXAMPLE
         Get-GPT3Completion -prompt "What is 2%2? - please explain"
     #>
@@ -364,10 +364,10 @@ function Get-ChatCompletion {
     [alias("chatgpt")]
     param(
         # [Parameter(Mandatory)]
-        $prompt,        
+        $prompt,
         $model = 'gpt-3.5-turbo',
         [ValidateRange(0, 2)]
-        [decimal]$temperature = 0.0,        
+        [decimal]$temperature = 0.0,
         [ValidateRange(1, 4096)]
         [int]$max_tokens = 256,
         [ValidateRange(0, 1)]
@@ -381,34 +381,34 @@ function Get-ChatCompletion {
         [Switch]$FastDisplay,
         [Switch]$ExcludeResponseFromBeingSaved
     )
-    
+
     New-Chat
 
     if ($prompt) {
-        New-ChatMessage -Role 'system' -Content $prompt    
+        New-ChatMessage -Role 'system' -Content $prompt
     }
 
     function AnotherQuestion {
-        $prompt = Read-Host -Prompt 'Please tell me what you would like to know' 
+        $prompt = Read-Host -Prompt 'Please tell me what you would like to know'
         Write-ChatResponse -Role 'user' -Content $prompt
     }
-    
+
     function NewChat {
         New-Chat
-        $prompt = Read-Host -Prompt 'What is the theme of your chat' 
-        New-ChatMessage -Role 'system' -Content $prompt    
+        $prompt = Read-Host -Prompt 'What is the theme of your chat'
+        New-ChatMessage -Role 'system' -Content $prompt
 
         AnotherQuestion
     }
-    
+
     function RunCode {
         Write-Host "Run: Not yet implemented`r`n" -ForegroundColor Red
     }
-    
+
     function SaveCode {
         Write-Host "Save: Not yet implemented`r`n" -ForegroundColor Red
     }
-    
+
     function StopChat {
         break
     }
@@ -423,23 +423,23 @@ function Get-ChatCompletion {
             [System.Management.Automation.Host.ChoiceDescription]$ChoiceDescription,
             $Action
         )
-    
+
         $null = $map.Add(@{
                 ChoiceDescription = $ChoiceDescription
                 Action            = $Action
             })
     }
-    
+
     New-MenuOption (New-Object System.Management.Automation.Host.ChoiceDescription '&Another question', 'Do a follow up question') AnotherQuestion
     New-MenuOption (New-Object System.Management.Automation.Host.ChoiceDescription '&New Chat', 'Start a new chat') NewChat
     New-MenuOption (New-Object System.Management.Automation.Host.ChoiceDescription '&Run', 'Run the code') RunCode
     New-MenuOption (New-Object System.Management.Automation.Host.ChoiceDescription '&Save', 'Save the code') SaveCode
     New-MenuOption (New-Object System.Management.Automation.Host.ChoiceDescription '&Clear Screen', 'Clear the screen') ClearScreen
     New-MenuOption (New-Object System.Management.Automation.Host.ChoiceDescription '&Quit', 'Stop the chat') StopChat
-    
+
     $descriptions = foreach ($item in $map) { $item.ChoiceDescription }
     $options = [System.Management.Automation.Host.ChoiceDescription[]]($descriptions)
-    
+
     AnotherQuestion
 
     while ($true) {
