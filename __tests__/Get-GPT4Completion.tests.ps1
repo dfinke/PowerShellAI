@@ -7,8 +7,8 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
         $env:OpenAIKey = 'sk-1234567890'
         Set-chatSessionPath -Path 'TestDrive:\PowerShell\ChatGPT'
 
-        Mock Invoke-RestMethod -ModuleName PowerShellAI -ParameterFilter { 
-            $Method -eq 'Post' -and $Uri -eq (Get-OpenAIChatCompletionUri) 
+        Mock Invoke-RestMethod -ModuleName PowerShellAI -ParameterFilter {
+            $Method -eq 'Post' -and $Uri -eq (Get-OpenAIChatCompletionUri)
         } -MockWith {
             [PSCustomObject]@{
                 choices = @(
@@ -19,7 +19,7 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
                     }
                 )
             }
-        } 
+        }
     }
 
     BeforeEach {
@@ -50,8 +50,8 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
     It 'Test Stop-Chat function exists' {
         $actual = Get-Command Stop-Chat -ErrorAction SilentlyContinue
         $actual | Should -Not -BeNullOrEmpty
-    } 
-    
+    }
+
     It "Test chat alias exists" {
         $actual = Get-Alias chat -ErrorAction SilentlyContinue
         $actual | Should -Not -BeNullOrEmpty
@@ -93,7 +93,7 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
         $actual = Test-ChatInProgress
         $actual | Should -BeTrue
     }
-    
+
     It 'Test New-ChatMessageTemplate has these parameters' {
         $actual = Get-Command New-ChatMessageTemplate
 
@@ -105,7 +105,7 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
 
     It 'Test if Add-ChatMessage has these parameters' {
         $actual = Get-Command Add-ChatMessage
-        
+
         $keys = $actual.Parameters.keys
 
         $keys.Contains("Message") | Should -BeTrue
@@ -113,7 +113,7 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
 
     It "Tests Get-GPT4Completion has these parameters" {
         $actual = Get-Command Get-GPT4Completion -ErrorAction SilentlyContinue
-        
+
         $keys = $actual.Parameters.keys
 
         $keys.Contains("Content") | Should -BeTrue
@@ -174,7 +174,7 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
         $actual = Test-ChatInProgress
         $actual | Should -BeFalse
 
-        (Get-ChatMessages).Count | Should -Be 0
+        @(Get-ChatMessages).Count | Should -Be 0
     }
 
     It 'Test message is added via New-Chat' {
@@ -182,7 +182,7 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
 
         $actual | Should -BeNullOrEmpty
 
-        $messages = Get-ChatMessages
+        $messages = @(Get-ChatMessages)
         $messages.Count | Should -Be 1
 
         $messages[0].role | Should -BeExactly 'system'
@@ -216,7 +216,7 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
         Stop-Chat
         Test-ChatinProgress | Should -BeFalse
     }
-    
+
     It 'Test message is added via chat and Test-ChatInProgress' {
         Test-ChatInProgress | Should -BeFalse
 
@@ -235,10 +235,10 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
 
         $actual | Should -BeNullOrEmpty
 
-        $sessions = Get-ChatSession
+        $sessions = @(Get-ChatSession)
         $sessions.Count | Should -Be 1
 
-        $content = $sessions | Get-ChatSessionContent
+        $content = @($sessions | Get-ChatSessionContent)
         $content.Count | Should -Be 1
 
         $content[0].role | Should -BeExactly 'system'
@@ -250,7 +250,7 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
 
         $actual | Should -BeExactly 'Mocked Get-GPT4Completion call'
 
-        $sessions = Get-ChatSession
+        $sessions = @(Get-ChatSession)
         $sessions.Count | Should -Be 1
 
         $content = $sessions | Get-ChatSessionContent
