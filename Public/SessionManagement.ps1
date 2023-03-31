@@ -12,12 +12,12 @@ function Get-ChatSessionTimeStamp {
     #>
     [CmdletBinding()]
     param ()
-    
+
     if ($null -eq $Script:timeStamp) {
         $Script:timeStamp = (Get-Date).ToString("yyyyMMddHHmmss")
     }
 
-    $Script:timeStamp    
+    $Script:timeStamp
 }
 
 function Reset-ChatSessionTimeStamp {
@@ -47,7 +47,7 @@ function Reset-ChatSessionPath {
     [CmdletBinding()]
     param ()
 
-    if ($PSVersionTable.Platform -eq 'Unix') {
+    if ($PSVersionTable.PSVersion.Major -gt 5 -and ($IsLinux -or $IsMacOS)) {
         $Script:chatSessionPath = Join-Path $env:HOME '~/PowerShellAI/ChatGPT'
     }
     elseif ($env:APPDATA) {
@@ -137,7 +137,7 @@ function Get-ChatSession {
     $path = Get-ChatSessionPath
 
     if (Test-Path $path) {
-        $results = Get-ChildItem -Path $path -Filter "*.xml" | Where-Object { $_.Name -match $Name }         
+        $results = Get-ChildItem -Path $path -Filter "*.xml" | Where-Object { $_.Name -match $Name }
         $results
     }
 }
@@ -161,7 +161,7 @@ function Get-ChatSessionContent {
     )
 
     Process {
-        if (Test-Path $Path) {
+        if (Test-Path -Path $Path) {
             Import-Clixml -Path $Path
         }
     }
@@ -170,11 +170,11 @@ function Get-ChatSessionContent {
 function Export-ChatSession {
     <#
         .SYNOPSIS
-            Export chat session 
+            Export chat session
         .DESCRIPTION
             Export chat session to a chat session file
         .EXAMPLE
-            Export-ChatSession        
+            Export-ChatSession
     #>
 
 
@@ -185,6 +185,6 @@ function Export-ChatSession {
     if (-not (Test-Path $sessionPath)) {
         New-Item -ItemType Directory -Path $sessionPath -Force | Out-Null
     }
-    
+
     Get-ChatMessages | Export-Clixml -Path (Get-ChatSessionFile) -Force
 }
