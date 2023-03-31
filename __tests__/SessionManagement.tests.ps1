@@ -83,7 +83,7 @@ Describe "Session Management" -Tag SessionManagement {
     It 'Test Reset-ChatSessionTimeStamp resets the session timestamp' {
         $expected = Get-ChatSessionTimeStamp
         Reset-ChatSessionTimeStamp
-        
+
         # need to wait a second to ensure the timestamp is different
         Start-Sleep 1
         $actual = Get-ChatSessionTimeStamp
@@ -94,7 +94,7 @@ Describe "Session Management" -Tag SessionManagement {
     It 'Test Get-ChatSessionPath returns correct path for Windows' {
         $actual = Get-ChatSessionPath
 
-        if ($IsWindows -or $null -eq $IsWindows) {
+        if ($PSVersionTable.PSVersion.Major -lt 6 -or $IsWindows) {
             $actual | Should -BeExactly "$env:APPDATA\PowerShellAI\ChatGPT"
         }
     }
@@ -104,13 +104,13 @@ Describe "Session Management" -Tag SessionManagement {
     #     $actual | Should -Be ($env:HOME + "~/PowerShellAI/ChatGPT")
     # }
 
-    It 'Test Get-ChatSessionFile returns correct file name for Windows' {
+    It 'Test Get-ChatSessionFile returns correct file name for Linux' {
 
-        if ($IsLinux -or $IsMacOS) {
-            # skip 
+        if ($PSVersionTable.PSVersion.Major -gt 5 -and ($IsLinux -or $IsMacOS)) {
+            # skip
             return
         }
-        
+
         Reset-ChatSessionTimeStamp
         $timeStamp = Get-ChatSessionTimeStamp
 
@@ -136,12 +136,12 @@ Describe "Session Management" -Tag SessionManagement {
                 role    = 'assistant'
                 content = 'assistant test'
             })
-        
+
         Set-chatSessionPath -Path 'TestDrive:\PowerShell\ChatGPT'
-        
+
         Export-ChatSession
 
-        $totalChats = Get-ChatSession
+        $totalChats = @(Get-ChatSession)
 
         $totalChats.Count | Should -Be 1
     }
@@ -154,8 +154,8 @@ Describe "Session Management" -Tag SessionManagement {
 
     It 'Test setting and resetting the chat session path' {
 
-        if ($IsLinux -or $IsMacOS) {
-            # skip 
+        if ($PSVersionTable.PSVersion.Major -gt 5 -and ($IsLinux -or $IsMacOS)) {
+            # skip
             return
         }
 
@@ -168,8 +168,8 @@ Describe "Session Management" -Tag SessionManagement {
         Reset-ChatSessionPath
 
         $actual = Get-ChatSessionPath
- 
-        if ($IsWindows -or $null -eq $IsWindows) {
+
+        if ($PSVersionTable.PSVersion.Major -lt 6 -or $IsWindows) {
             $actual | Should -BeExactly "$env:APPDATA\PowerShellAI\ChatGPT"
         }
     }
@@ -177,7 +177,7 @@ Describe "Session Management" -Tag SessionManagement {
     It 'Test Get-ChatSessionContent returns correct content' {
 
         Set-ChatSessionPath "TestDrive:\PowerShell\ChatGPT"
-        
+
         Add-ChatMessage -Message ([PSCustomObject]@{
                 role    = 'system'
                 content = 'system test'
@@ -194,18 +194,18 @@ Describe "Session Management" -Tag SessionManagement {
             })
 
         Export-ChatSession
- 
-        $sessions = Get-ChatSession
+
+        $sessions = @(Get-ChatSession)
         $sessions.Count | Should -Be 1
 
-        $content = Get-ChatSessionContent $sessions
-        
+        $content = @(Get-ChatSessionContent $sessions)
+
         $content | Should -Not -BeNullOrEmpty
         $content.Count | Should -Be 3
 
         $content[0].role | Should -BeExactly 'system'
         $content[0].content | Should -BeExactly 'system test'
-        
+
         $content[1].role | Should -BeExactly 'user'
         $content[1].content | Should -BeExactly 'user test'
 
@@ -216,7 +216,7 @@ Describe "Session Management" -Tag SessionManagement {
     It 'Test Get-ChatSessionContent returns correct content with multiple sessions' {
         Set-ChatSessionPath "TestDrive:\PowerShell\ChatGPT"
         Get-ChatSessionPath | Get-ChildItem | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
-        
+
         Add-ChatMessage -Message ([PSCustomObject]@{
                 role    = 'system'
                 content = 'system test'
@@ -233,7 +233,7 @@ Describe "Session Management" -Tag SessionManagement {
             })
 
         Export-ChatSession
-        
+
         Stop-Chat
         Reset-ChatSessionTimeStamp
         Start-Sleep 1
@@ -264,10 +264,10 @@ Describe "Session Management" -Tag SessionManagement {
         $result = $sessions | Get-ChatSessionContent
 
         $result.Count | Should -Be 6
-        
+
         $result[0].role | Should -BeExactly 'system'
         $result[0].content | Should -BeExactly 'system test'
-        
+
         $result[1].role | Should -BeExactly 'user'
         $result[1].content | Should -BeExactly 'user test'
 
@@ -287,7 +287,7 @@ Describe "Session Management" -Tag SessionManagement {
     It 'Test Get-ChatSessionContent piping sessions to it' {
         Set-ChatSessionPath "TestDrive:\PowerShell\ChatGPT"
         Get-ChatSessionPath | Get-ChildItem | Remove-Item -Recurse -Force -ErrorAction SilentlyContinue
-        
+
         Add-ChatMessage -Message ([PSCustomObject]@{
                 role    = 'system'
                 content = 'system test'
@@ -304,7 +304,7 @@ Describe "Session Management" -Tag SessionManagement {
             })
 
         Export-ChatSession
-        
+
         Stop-Chat
         Reset-ChatSessionTimeStamp
         Start-Sleep 1
@@ -365,16 +365,16 @@ Describe "Session Management" -Tag SessionManagement {
 
         $result[2].role | Should -BeExactly 'assistant'
         $result[2].content | Should -BeExactly 'assistant test'
- 
+
         $result[3].role | Should -BeExactly 'system'
         $result[3].content | Should -BeExactly 'system test 2'
-        
+
         $result[4].role | Should -BeExactly 'user'
         $result[4].content | Should -BeExactly 'user test 2'
 
         $result[5].role | Should -BeExactly 'assistant'
         $result[5].content | Should -BeExactly 'assistant test 2'
- 
+
         $result[6].role | Should -BeExactly 'system'
         $result[6].content | Should -BeExactly 'system test 3'
 
