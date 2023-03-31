@@ -5,7 +5,7 @@ Describe "Chat Messages" -Tag ChatMessages {
         $script:savedKey = $env:OpenAIKey
         $env:OpenAIKey = 'sk-1234567890'
     }
-    
+
     AfterAll {
         $env:OpenAIKey = $savedKey
     }
@@ -45,7 +45,7 @@ Describe "Chat Messages" -Tag ChatMessages {
     }
 
     It 'Tests New-ChatMessage exists' {
-        $actual = Get-Command New-ChatMessage -ErrorAction SilentlyContinue        
+        $actual = Get-Command New-ChatMessage -ErrorAction SilentlyContinue
         $actual | Should -Not -BeNullOrEmpty
     }
 
@@ -55,40 +55,40 @@ Describe "Chat Messages" -Tag ChatMessages {
     }
 
     It 'Test Clear-ChatMessages clears messages' {
-        New-ChatMessage -Role 'user' -Content "Hello"       
-        New-ChatUserMessage -Content "Hello message 2"  
+        New-ChatMessage -Role 'user' -Content "Hello"
+        New-ChatUserMessage -Content "Hello message 2"
 
         $actual = Get-ChatMessages
         $actual.Count | Should -Be 2
 
         Clear-ChatMessages
         $actual = Get-ChatMessages
-        $actual.Count | Should -Be 0
+        @($actual).Count | Should -Be 0
     }
 
-    It 'Tests Get-ChatMessages retuns messages with proper cased keys' {
-        New-ChatMessage -Role 'user' -Content "Hello"       
+    It 'Tests Get-ChatMessages returns messages with proper cased keys' {
+        New-ChatMessage -Role 'user' -Content "Hello"
 
         $actual = Get-ChatMessages
 
         $names = $actual[0].PSObject.Properties.Name
 
         $names[0] | Should -BeExactly "role"
-        $names[1] | Should -BeExactly "content"        
+        $names[1] | Should -BeExactly "content"
     }
 
     It 'Tests New-ChatMessage has these parameters' {
         $actual = Get-Command New-ChatMessage -ErrorAction SilentlyContinue
-        
+
         $keys = $actual.Parameters.keys
 
         $keys.Contains("role") | Should -BeTrue
         $keys.Contains("content") | Should -BeTrue
     }
-        
+
     It 'Tests New-ChatUserMessage has these parameters' {
         $actual = Get-Command New-ChatUserMessage -ErrorAction SilentlyContinue
-        
+
         $keys = $actual.Parameters.keys
 
         $keys.Contains("content") | Should -BeTrue
@@ -96,28 +96,28 @@ Describe "Chat Messages" -Tag ChatMessages {
 
     It 'Tests New-ChatSystemMessage has these parameters' {
         $actual = Get-Command New-ChatSystemMessage -ErrorAction SilentlyContinue
-        
+
         $keys = $actual.Parameters.keys
 
         $keys.Contains("content") | Should -BeTrue
     }
 
     It 'Tests adding a user message with New-ChatMessage' {
-        
-        New-ChatMessage -Role 'user' -Content "Hello"       
 
-        $actual = Get-ChatMessages
+        New-ChatMessage -Role 'user' -Content "Hello"
+
+        $actual = @(Get-ChatMessages)
 
         $actual.Count | Should -Be 1
         $actual[0].Role | Should -Be "user"
         $actual[0].Content | Should -Be "Hello"
     }
 
-    It 'Tests adding a user message witn New-ChatUserMessage' {
+    It 'Tests adding a user message with New-ChatUserMessage' {
         Clear-ChatMessages
-        New-ChatUserMessage -content "Hello"       
+        New-ChatUserMessage -content "Hello"
 
-        $actual = Get-ChatMessages
+        $actual = @(Get-ChatMessages)
 
         $actual.Count | Should -Be 1
         $actual[0].Role | Should -Be "user"
@@ -126,7 +126,7 @@ Describe "Chat Messages" -Tag ChatMessages {
 
     It 'Tests state gets reset after New-Chat' {
         New-ChatUserMessage -content "Hello"
-        (Get-ChatMessages).Count | Should -Be 1
+        @(Get-ChatMessages).Count | Should -Be 1
 
         New-Chat
         Get-ChatMessages | Should -BeNullOrEmpty
@@ -139,7 +139,7 @@ Describe "Chat Messages" -Tag ChatMessages {
         $actual = Get-ChatMessages
 
         $actual.Count | Should -Be 2
-        
+
         $actual[0].Role | Should -Be "system"
         $actual[0].Content | Should -Be "Hello"
 
@@ -154,7 +154,7 @@ Describe "Chat Messages" -Tag ChatMessages {
         $actual = Get-ChatMessages
 
         $actual.Count | Should -Be 2
-        
+
         $actual[0].Role | Should -Be "assistant"
         $actual[0].Content | Should -Be "Hello"
 
@@ -165,7 +165,7 @@ Describe "Chat Messages" -Tag ChatMessages {
     It 'Tests New-Chat with a starting message' {
         New-Chat -Content "You are a powershell bot"
 
-        $actual = Get-ChatMessages
+        $actual = @(Get-ChatMessages)
 
         $actual.Count | Should -Be 1
         $actual[0].Role | Should -BeExactly 'system'
@@ -173,8 +173,8 @@ Describe "Chat Messages" -Tag ChatMessages {
     }
 
     It 'Tests creating a chat and sending a message' {
-        Mock Invoke-RestMethod -ModuleName PowerShellAI -ParameterFilter { 
-            $Method -eq 'Post' -and $Uri -eq (Get-OpenAIChatCompletionUri) 
+        Mock Invoke-RestMethod -ModuleName PowerShellAI -ParameterFilter {
+            $Method -eq 'Post' -and $Uri -eq (Get-OpenAIChatCompletionUri)
         } -MockWith {
             [PSCustomObject]@{
                 choices = @(
@@ -185,7 +185,7 @@ Describe "Chat Messages" -Tag ChatMessages {
                     }
                 )
             }
-        } 
+        }
 
         New-Chat -Content "You are a powershell bot"
         $result = chat "Hello"
