@@ -53,9 +53,14 @@ function Get-GPT3Completion {
         [Switch]$Raw
     )
 
-    # if (!(Test-OpenAIKey)) {
-    #     throw 'You must set the $env:OpenAIKey environment variable to your OpenAI API key. https://beta.openai.com/account/api-keys'
-    # }
+    if ($null -ne $model) {
+        if ($null -ne $Script:OpenAIModel) { $model = $Script:OpenAIModel } else {
+            if ($null -ne $env:OpenAIModel) { $model = $env:OpenAIModel } else {
+                $model = 'text-davinci-003'
+            }
+        }
+    }
+    Write-Verbose "Using model: $model"
 
     $body = [ordered]@{
         model             = $model
