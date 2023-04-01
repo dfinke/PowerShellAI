@@ -104,7 +104,7 @@ Describe "Session Management" -Tag SessionManagement {
     #     $actual | Should -Be ($env:HOME + "~/PowerShellAI/ChatGPT")
     # }
 
-    It 'Test Get-ChatSessionFile returns correct file name for Linux' {
+    It 'Test Get-ChatSessionFile returns correct file name for Windows' {
 
         if ($PSVersionTable.PSVersion.Major -gt 5 -and ($IsLinux -or $IsMacOS)) {
             # skip
