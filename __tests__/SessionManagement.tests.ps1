@@ -198,7 +198,7 @@ Describe "Session Management" -Tag SessionManagement {
         $sessions = @(Get-ChatSession)
         $sessions.Count | Should -Be 1
 
-        $content = @(Get-ChatSessionContent $sessions)
+        $content = @(Get-ChatSessionContent $sessions.FullName)
 
         $content | Should -Not -BeNullOrEmpty
         $content.Count | Should -Be 3
@@ -258,6 +258,7 @@ Describe "Session Management" -Tag SessionManagement {
         Stop-Chat
         Reset-ChatSessionTimeStamp
 
+        $sessions = @(Get-ChatSession)
         $sessions = Get-ChatSession
         $sessions.Count | Should -Be 2
 
