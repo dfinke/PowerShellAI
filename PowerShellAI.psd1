@@ -71,6 +71,7 @@ The PowerShell AI module integrates with the OpenAI API and let's you easily acc
         'New-SpreadSheet'
         'Set-DalleImageAsWallpaper'
         'Set-OpenAIKey'
+        'Set-OpenAIModel'
     )
 
     AliasesToExport   = @(
