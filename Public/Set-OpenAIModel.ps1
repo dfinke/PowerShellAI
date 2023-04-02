@@ -10,6 +10,8 @@ function Set-OpenAIModel {
         Specifies OpenAI API model name as string.
 
         .EXAMPLE
+        Set-OpenAIModel -Model "text-ada-001"
+        .EXAMPLE
         Set-OpenAIModel -Model (Get-OpenAIModel | Get-Random)
     #>
     [CmdletBinding()]
