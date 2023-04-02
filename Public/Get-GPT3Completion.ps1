@@ -53,7 +53,7 @@ function Get-GPT3Completion {
         [Switch]$Raw
     )
 
-    if ($null -ne $model) {
+    if (-not $model) {
         if ($null -ne $Script:OpenAIModel) { $model = $Script:OpenAIModel } else {
             if ($null -ne $env:OpenAIModel) { $model = $env:OpenAIModel } else {
                 $model = 'text-davinci-003'
