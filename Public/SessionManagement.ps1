@@ -137,8 +137,7 @@ function Get-ChatSession {
     $path = Get-ChatSessionPath
 
     if (Test-Path $path) {
-        $results = Get-ChildItem -Path $path -Filter "*.xml" | Where-Object { $_.Name -match $Name }
-        $results
+        Get-ChildItem -Path $path -Filter "*.xml" | Where-Object { $_.Name -match $Name }
     }
 }
 
@@ -155,14 +154,13 @@ function Get-ChatSessionContent {
     #>
     [CmdletBinding()]
     param (
-        [Alias('FullName')]
-        [Parameter(ValueFromPipelineByPropertyName)]
-        $Path
+        [Parameter(ValueFromPipeline)]
+        [IO.FileInfo]$Path
     )
 
     Process {
-        if (Test-Path -Path $Path) {
-            Import-Clixml -Path $Path
+        if ($Path -is [IO.FileInfo] -and (Test-Path -Path $Path.FullName)) {
+            Import-Clixml -Path $Path.FullName
         }
     }
 }
