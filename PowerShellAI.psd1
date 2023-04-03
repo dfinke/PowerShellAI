@@ -1,6 +1,6 @@
 @{
     RootModule        = 'PowerShellAI.psm1'
-    ModuleVersion     = '0.5.5'
+    ModuleVersion     = '0.5.6'
     GUID              = '081ce7b4-6e63-41ca-92a7-2bf72dbad018'
     Author            = 'Douglas Finke'
     CompanyName       = 'Doug Finke'
