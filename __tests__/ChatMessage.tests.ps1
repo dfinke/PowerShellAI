@@ -59,7 +59,7 @@ Describe "Chat Messages" -Tag ChatMessages {
         New-ChatUserMessage -Content "Hello message 2"
 
         $actual = Get-ChatMessages
-        $actual.Count | Should -Be 2
+        @($actual).Count | Should -Be 2
 
         Clear-ChatMessages
         $actual = Get-ChatMessages
@@ -71,7 +71,7 @@ Describe "Chat Messages" -Tag ChatMessages {
 
         $actual = Get-ChatMessages
 
-        $names = $actual[0].PSObject.Properties.Name
+        $names = @($actual)[0].PSObject.Properties.Name
 
         $names[0] | Should -BeExactly "role"
         $names[1] | Should -BeExactly "content"
@@ -106,9 +106,9 @@ Describe "Chat Messages" -Tag ChatMessages {
 
         New-ChatMessage -Role 'user' -Content "Hello"
 
-        $actual = @(Get-ChatMessages)
+        $actual = Get-ChatMessages
 
-        $actual.Count | Should -Be 1
+        @($actual).Count | Should -Be 1
         $actual[0].Role | Should -Be "user"
         $actual[0].Content | Should -Be "Hello"
     }
@@ -117,9 +117,9 @@ Describe "Chat Messages" -Tag ChatMessages {
         Clear-ChatMessages
         New-ChatUserMessage -content "Hello"
 
-        $actual = @(Get-ChatMessages)
+        $actual = Get-ChatMessages
 
-        $actual.Count | Should -Be 1
+        @($actual).Count | Should -Be 1
         $actual[0].Role | Should -Be "user"
         $actual[0].Content | Should -Be "Hello"
     }
@@ -138,7 +138,7 @@ Describe "Chat Messages" -Tag ChatMessages {
 
         $actual = Get-ChatMessages
 
-        $actual.Count | Should -Be 2
+        @($actual).Count | Should -Be 2
 
         $actual[0].Role | Should -Be "system"
         $actual[0].Content | Should -Be "Hello"
@@ -153,7 +153,7 @@ Describe "Chat Messages" -Tag ChatMessages {
 
         $actual = Get-ChatMessages
 
-        $actual.Count | Should -Be 2
+        @($actual).Count | Should -Be 2
 
         $actual[0].Role | Should -Be "assistant"
         $actual[0].Content | Should -Be "Hello"
@@ -165,9 +165,9 @@ Describe "Chat Messages" -Tag ChatMessages {
     It 'Tests New-Chat with a starting message' {
         New-Chat -Content "You are a powershell bot"
 
-        $actual = @(Get-ChatMessages)
+        $actual = Get-ChatMessages
 
-        $actual.Count | Should -Be 1
+        @($actual).Count | Should -Be 1
         $actual[0].Role | Should -BeExactly 'system'
         $actual[0].Content | Should -BeExactly 'You are a powershell bot'
     }
@@ -194,7 +194,7 @@ Describe "Chat Messages" -Tag ChatMessages {
 
         $actual = Get-ChatMessages
 
-        $actual.Count | Should -Be 3
+        @($actual).Count | Should -Be 3
         $actual[0].Role | Should -BeExactly 'system'
         $actual[0].Content | Should -BeExactly 'You are a powershell bot'
 

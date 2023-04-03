@@ -137,7 +137,7 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
             })
 
         $actual = Get-ChatMessages
-        $actual.Count | Should -Be 3
+        @($actual).Count | Should -Be 3
 
         $actual[0].role | Should -Be 'system'
         $actual[0].content | Should -Be 'system test'
@@ -182,8 +182,8 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
 
         $actual | Should -BeNullOrEmpty
 
-        $messages = @(Get-ChatMessages)
-        $messages.Count | Should -Be 1
+        $messages = Get-ChatMessages
+        @($messages).Count | Should -Be 1
 
         $messages[0].role | Should -BeExactly 'system'
         $messages[0].content | Should -BeExactly 'test system message'
@@ -195,7 +195,7 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
         $actual | Should -BeExactly 'Mocked Get-GPT4Completion call'
 
         $messages = Get-ChatMessages
-        $messages.Count | Should -Be 2
+        @($messages).Count | Should -Be 2
 
         $messages[0].role | Should -BeExactly 'user'
         $messages[0].content | Should -BeExactly 'test user message'
@@ -235,11 +235,11 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
 
         $actual | Should -BeNullOrEmpty
 
-        $sessions = @(Get-ChatSession)
-        $sessions.Count | Should -Be 1
+        $sessions = Get-ChatSession
+        @($sessions).Count | Should -Be 1
 
-        $content = @($sessions | Get-ChatSessionContent)
-        $content.Count | Should -Be 1
+        $content = $sessions | Get-ChatSessionContent
+        @($content).Count | Should -Be 1
 
         $content[0].role | Should -BeExactly 'system'
         $content[0].content | Should -BeExactly 'test system message'
@@ -250,11 +250,11 @@ Describe "Get-GPT4Completion" -Tag 'GPT4Completion' {
 
         $actual | Should -BeExactly 'Mocked Get-GPT4Completion call'
 
-        $sessions = @(Get-ChatSession)
-        $sessions.Count | Should -Be 1
+        $sessions = Get-ChatSession
+        @($sessions).Count | Should -Be 1
 
         $content = $sessions | Get-ChatSessionContent
-        $content.Count | Should -Be 2
+        @($content).Count | Should -Be 2
 
         $content[0].role | Should -BeExactly 'user'
         $content[0].content | Should -BeExactly 'test user message'
