@@ -141,9 +141,9 @@ Describe "Session Management" -Tag SessionManagement {
 
         Export-ChatSession
 
-        $totalChats = @(Get-ChatSession)
+        $totalChats = Get-ChatSession
 
-        $totalChats.Count | Should -Be 1
+        @($totalChats).Count | Should -Be 1
     }
 
     It 'Test Get-ChatSession function exists' {
@@ -174,6 +174,11 @@ Describe "Session Management" -Tag SessionManagement {
         }
     }
 
+    It 'Test Get-ChatSessionContent does not throw on null path' {
+        {$null | Get-ChatSessionContent} | Should -Not -Throw
+        {Get-ChatSessionContent $null} | Should -Not -Throw
+    }
+
     It 'Test Get-ChatSessionContent returns correct content' {
 
         Set-ChatSessionPath "TestDrive:\PowerShell\ChatGPT"
@@ -195,13 +200,13 @@ Describe "Session Management" -Tag SessionManagement {
 
         Export-ChatSession
 
-        $sessions = @(Get-ChatSession)
-        $sessions.Count | Should -Be 1
+        $sessions = Get-ChatSession
+        @($sessions).Count | Should -Be 1
 
-        $content = @(Get-ChatSessionContent $sessions.FullName)
+        $content = Get-ChatSessionContent $sessions
 
         $content | Should -Not -BeNullOrEmpty
-        $content.Count | Should -Be 3
+        @($content).Count | Should -Be 3
 
         $content[0].role | Should -BeExactly 'system'
         $content[0].content | Should -BeExactly 'system test'
@@ -258,13 +263,12 @@ Describe "Session Management" -Tag SessionManagement {
         Stop-Chat
         Reset-ChatSessionTimeStamp
 
-        $sessions = @(Get-ChatSession)
         $sessions = Get-ChatSession
-        $sessions.Count | Should -Be 2
+        @($sessions).Count | Should -Be 2
 
         $result = $sessions | Get-ChatSessionContent
 
-        $result.Count | Should -Be 6
+        @($result).Count | Should -Be 6
 
         $result[0].role | Should -BeExactly 'system'
         $result[0].content | Should -BeExactly 'system test'
@@ -352,11 +356,11 @@ Describe "Session Management" -Tag SessionManagement {
         Reset-ChatSessionTimeStamp
 
         $sessions = Get-ChatSession
-        $sessions.Count | Should -Be 3
+        @($sessions).Count | Should -Be 3
 
         $result = $sessions | Get-ChatSessionContent
 
-        $result.Count | Should -Be 9
+        @($result).Count | Should -Be 9
 
         $result[0].role | Should -BeExactly 'system'
         $result[0].content | Should -BeExactly 'system test'
