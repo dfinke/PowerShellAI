@@ -208,6 +208,8 @@ ai "list of planets only names as json" | ai 'convert to  xml' | ai 'convert to 
 $xml.Planets.Planet
 ```
 
+`ai` is using OpenAI's `text-davinci-003` model by default. You can specify an alternative model by setting the `OpenAIModel` environment variable, or calling `Set-OpenAIModel` function, for example: `Set-OpenAIModel "text-ada-001"`
+
 ## Use `ai` with `git`
 
 Pipe the output of `git status` to `ai` to create a commit message.
