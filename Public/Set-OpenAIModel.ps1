@@ -1,3 +1,13 @@
+Class OpenAIModels : System.Management.Automation.IValidateSetValuesGenerator {
+    [String[]] GetValidValues() {
+        # $templates = foreach ($model in Get-OpenAIModel) {
+        #     $template.BaseName
+        # }
+          
+        return Get-OpenAIModel
+    }
+}
+
 function Set-OpenAIModel {
     <#
         .SYNOPSIS
@@ -16,10 +26,7 @@ function Set-OpenAIModel {
     #>
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)]
-        [ValidateScript({if ($_ -in (Get-OpenAIModel)) {$true} else {throw 'Sepcified OpenAI Model is not on the available models list.'}})]
-        [ValidateNotNullOrEmpty()]
-        [string]
+        [ValidateSet([OpenAIModels])]
         $Model
     )
 
