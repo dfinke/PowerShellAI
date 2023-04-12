@@ -11,8 +11,8 @@ The PowerShell AI module integrates with the OpenAI API and let's you easily acc
 '@
 
     FunctionsToExport = @(
-		'Get-OpenAIEdit'
-		'Get-OpenAIEditsUri'
+        'Get-OpenAIEdit'
+        'Get-OpenAIEditsUri'
         'ai'
         'ConvertFrom-GPTMarkdownTable'
         'copilot'
@@ -61,6 +61,16 @@ The PowerShell AI module integrates with the OpenAI API and let's you easily acc
         'Set-ChatSessionPath'
         'Stop-Chat'
         'Test-ChatInProgress'
+        #
+
+        # Azure OpenAI
+        'Get-ChatAPIProvider'
+        'Get-ChatAzureOpenAIURI'
+        'Get-AzureOpenAIOptions'
+        'Reset-AzureOpenAIOptions'
+        'Set-AzureOpenAI'
+        'Set-ChatAPIProvider'
+        'Set-AzureOpenAIOptions'
         #
 
         'Get-OpenAIUsage'

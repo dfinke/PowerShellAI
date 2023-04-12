@@ -1,4 +1,27 @@
+<strong><p align="center">OpenAI at your Fingertips! ✨</p></strong>
+<strong><p align="center">using PowerShell</p></strong>
+
+<p align="center">
+  <a href="https://twitter.com/dfinke">
+    <img src="https://img.shields.io/badge/Twitter-@dfinke-blue.svg?logo=twitter&style=flat-square">
+  </a>
+  <a href="https://www.powershellgallery.com/packages/PowerShellAI/">
+    <img src="https://img.shields.io/powershellgallery/v/PowerShellAI.svg">
+  </a>  
+  <a href="https://www.powershellgallery.com/packages/PowerShellAI/">
+    <img src="https://img.shields.io/powershellgallery/dt/PowerShellAI.svg">
+  </a>
+  <!-- <a href="https://github.com/dfinke/PSAdvantage/blob/master/LICENSE">
+    <img src="https://img.shields.io/badge/License-Apache-orange.svg?logo=openbsd&style=flat-square">
+  </a> -->
+</p> 
+
+<p align="center">
+   • <a href="https://github.com/dfinke/PowerShellAI/wiki">Documentation</a> •
+</p>
+
 # PowerShellAI
+
 ## A User-Friendly Module for OpenAI's GPT-3 and DALL-E API
 
 `PowerShellAI` is a ***community-maintained*** PowerShell module designed to simplify the use of OpenAI's GPT-3 language model and DALL-E API. It empowers users to effortlessly build complex language-powered applications, regardless of their level of experience.

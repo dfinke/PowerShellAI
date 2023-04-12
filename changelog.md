@@ -1,3 +1,28 @@
+# v0.5.6
+## What's Changed
+- Enables chat conversations with either the public OpenAI or a private Azure OpenAI Service.
+    - [Documentation](https://github.com/dfinke/PowerShellAI/wiki/AzureOpenAI)
+    - [Video](https://youtu.be/1Z1QYQZ1Z1Q)
+
+_Community Contributions:_
+- Thank you [Svyatoslav Pidgorny](https://github.com/SP3269)
+    - Copilot prompt change, adding clipboard 
+
+        ```
+        PS D:\> copilot 'cmds to find k8 pods'
+        ╔═════════════════════════╗
+        ║Q: cmds to find k8 pods  ║
+        ║═════════════════════════║
+        ║1: kubectl get pods      ║
+        ╚═════════════════════════╝
+        Run the code? You can also choose additional actions
+        [Y] Yes  [E] Explain  [C] Copy  [N] No  [?] Help (default is "N"):
+        ```
+
+## New Contributors
+* @SP3269 made their first contribution in https://github.com/dfinke/PowerShellAI/pull/105
+
+
 # v0.5.5
 
 - Added support for GPT-4, conversation-in and message-out

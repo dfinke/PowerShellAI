@@ -8,12 +8,112 @@ $Script:ChatSessionOptions = @{
     'stop'              = $null
 }
 
+$Script:AzureOpenAIOptions = @{
+    Endpoint       = 'not set'
+    DeploymentName = 'not set'
+    ApiVersion     = 'not set'
+}
+
+$Script:ChatAPIProvider = 'OpenAI'
 $Script:ChatInProgress = $false
 
 [System.Collections.ArrayList]$Script:ChatMessages = @()
 
+function Get-AzureOpenAIOptions {
+    [CmdletBinding()]
+    param()
+
+    $Script:AzureOpenAIOptions
+}
+
+function Set-AzureOpenAIOptions {
+    [CmdletBinding()]
+    param(
+        $Endpoint,
+        $DeploymentName,
+        $ApiVersion
+    )
+
+    $options = @{} + $PSBoundParameters
+
+    foreach ($key in $options.Keys) {
+        $Script:AzureOpenAIOptions[$key] = $options[$key]
+    }
+}
+
+
+function Reset-AzureOpenAIOptions {
+    [CmdletBinding()]
+    param()
+
+    $Script:AzureOpenAIOptions = @{
+        Endpoint       = 'not set'
+        DeploymentName = 'not set'
+        ApiVersion     = 'not set'
+    }
+}
+
+function Get-ChatAzureOpenAIURI {
+    <#
+        .SYNOPSIS
+            Get the URI for the Azure OpenAI API.
+        .EXAMPLE
+            Get-ChatAzureOpenAIURI
+    #>
+    [CmdletBinding()]
+    param()
+
+    $options = Get-AzureOpenAIOptions
+
+    if ($options.Endpoint -eq 'not set') {
+        throw 'Azure Open AI Endpoint not set'
+    }
+    elseif ($options.DeploymentName -eq 'not set') {
+        throw 'Azure Open AI DeploymentName not set'
+    }
+    elseif ($options.ApiVersion -eq 'not set') {
+        throw 'Azure Open AI ApiVersion not set'
+    }
+
+    $uri = "$($options.Endpoint)/openai/deployments/$($options.DeploymentName)/chat/completions?api-version=$($options.ApiVersion)"
+
+    $uri
+}
+
+function Get-ChatAPIProvider {
+    <#
+        .SYNOPSIS
+            Get the current chat API provider.
+        .EXAMPLE
+            Get-ChatAPIProvider
+    #>
+    [CmdletBinding()]
+    param()
+
+    $Script:ChatAPIProvider
+}
+
+function Set-ChatAPIProvider {
+    <#
+        .SYNOPSIS
+            Set the chat API provider.
+        .PARAMETER Provider
+            The chat API provider to use.
+            Valid values are 'AzureOpenAI' and 'OpenAI'.
+            Default value is 'OpenAI'.
+        .EXAMPLE
+            Set-ChatAPIProvider -Provider 'AzureOpenAI'
+    #>
+    [CmdletBinding()]
+    param(
+        [ValidateSet('AzureOpenAI', 'OpenAI')]
+        $Provider = 'OpenAI'
+    )
+
+    $Script:ChatAPIProvider = $Provider
+}
+
 function Get-ChatSessionOptions {
-    # add comment based help
     <#
         .SYNOPSIS
             Get the current chat session options.
@@ -365,8 +465,15 @@ function Get-GPT4Completion {
     New-ChatUserMessage -Content $Content
 
     $body = Get-ChatPayload -AsJson
+
+    if ((Get-ChatAPIProvider) -eq 'OpenAI') {
+        $uri = Get-OpenAIChatCompletionUri
+    }
+    elseif ((Get-ChatAPIProvider) -eq 'AzureOpenAI') {
+        $uri = Get-ChatAzureOpenAIURI
+    }
     
-    $result = Invoke-OpenAIAPI -Uri (Get-OpenAIChatCompletionUri) -Method 'Post' -Body $body
+    $result = Invoke-OpenAIAPI -Uri $uri -Method 'Post' -Body $body 
 
     if ($result.choices) {
         $response = $result.choices[0].message.content

@@ -108,6 +108,9 @@ function copilot {
             1 {
                 explain -Value (Get-Runnable -result $result)
             }
+            2 {
+                Get-Runnable -result $result | Set-Clipboard
+            }
             default { "Not running" }
         }
     }
