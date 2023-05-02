@@ -44,7 +44,7 @@ function Get-DalleImage {
         return $result
     }
     else {
-        $DestinationPath = [IO.Path]::GetTempFileName() -replace ".tmp", ".png"
+        $DestinationPath = [IO.Path]::GetTempFileName() -replace ([regex]::Escape(".tmp")), ".png"
         Invoke-RestMethod $result.data.url -OutFile $DestinationPath
         $DestinationPath
     }
