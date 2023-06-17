@@ -1,6 +1,9 @@
 ﻿# Set the OpenAI key to null
 $Script:OpenAIKey = $null
 
+# Set the OpenAI base URI to OpenAI
+$Script:OpenAIBaseUri = 'https://api.openai.com'
+
 # Set the chat API provider to OpenAI
 $Script:ChatAPIProvider = 'OpenAI'
 
