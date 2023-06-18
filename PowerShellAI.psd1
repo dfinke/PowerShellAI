@@ -1,4 +1,4 @@
-@{
+﻿@{
     RootModule        = 'PowerShellAI.psm1'
     ModuleVersion     = '0.7.9'
     GUID              = '081ce7b4-6e63-41ca-92a7-2bf72dbad018'
@@ -22,7 +22,7 @@ The PowerShell AI module integrates with the OpenAI API and let's you easily acc
         'Disable-ChatPersistence'
         'Enable-AIShortCutKey'
         'Enable-ChatPersistence'
-        'Get-ChatCompletion'        
+        'Get-ChatCompletion'
         'Get-ChatPersistence'
         'Get-CompletionFromMessages'
         'Get-DalleImage'
@@ -60,7 +60,7 @@ The PowerShell AI module integrates with the OpenAI API and let's you easily acc
         'New-ChatMessage'
         'New-ChatMessageTemplate'
         'New-ChatSystemMessage'
-        'New-ChatUserMessage'        
+        'New-ChatUserMessage'
         'Reset-ChatSessionOptions'
         'Reset-ChatSessionPath'
         'Reset-ChatSessionTimeStamp'

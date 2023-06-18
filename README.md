@@ -19,7 +19,7 @@
   <!-- <a href="https://github.com/dfinke/PSAdvantage/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-Apache-orange.svg?logo=openbsd&style=flat-square">
   </a> -->
-</p> 
+</p>
 
 <p align="center">
    • <a href="https://github.com/dfinke/PowerShellAI/wiki">Documentation</a> •
@@ -33,11 +33,11 @@
 
 `PowerShellAI` is cross-platform and runs seamlessly on Windows, Linux, and MacOS.
 
-Getting started with `PowerShellAI` is easy. Simply install the module from the gallery using the following command: 
+Getting started with `PowerShellAI` is easy. Simply install the module from the gallery using the following command:
 
 `Install-Module -Name PowerShellAI`
 
-The repository includes a comprehensive list of functions that enable users to interact with GPT-3 and DALL-E, along with examples of how to use them at the command line or in scripts. 
+The repository includes a comprehensive list of functions that enable users to interact with GPT-3 and DALL-E, along with examples of how to use them at the command line or in scripts.
 
 The video demos showcase the many possibilities of the module and how you can leverage its functions to best suit your needs.
 
@@ -49,9 +49,11 @@ Whether you're a seasoned developer or just getting started with AI, `PowerShell
 >![](./media/AIReplace.png)
 
 # Unleash the Power of Artificial Intelligence with PowerShell
+
 Welcome to the PowerShell Artificial Intelligence repository! Here, you will find a collection of powerful PowerShell scripts that will enable you to easily integrate AI into your projects and take them to the next level. Imagine being able to interact directly with OpenAI's GPT AI with just a few simple commands. With this module, it's now possible.
 
 ## Get Ahead of the Game
+
 By using this module, you'll have the ability to add cutting-edge AI functionality to your projects without needing to have a deep understanding of the underlying technology. This means you can stay focused on what you do best while still being able to work with the latest and greatest.
 
 ## Start Your AI Journey Today
@@ -64,9 +66,10 @@ In the PowerShell console:
 Install-Module -Name PowerShellAI
 ```
 
-Get/Create your OpenAI API key from [ https://platform.openai.com/account/api-keys]( https://platform.openai.com/account/api-keys) and then set as *secure string* with `Set-OpenAIKey` or as *plain text* with `$env:OpenAIKey`.
+Get/Create your OpenAI API key from [https://platform.openai.com/account/api-keys]( https://platform.openai.com/account/api-keys) and then set as *secure string* with `Set-OpenAIKey` or as *plain text* with `$env:OpenAIKey`.
 
 ## Examples
+
 Check out these PowerShell scripts to see how easy it is to get started with AI in PowerShell:
 
 |PS Script | Description | Location
@@ -82,7 +85,6 @@ Check out these PowerShell scripts to see how easy it is to get started with AI 
 |Get-OpenAIUsage|Returns a billing summary of OpenAI API usage for your organization
 | Disable-AIShortCutKey | Disable the <kbd>ctrl+g</kbd> shortcut key go getting completions | [Disable-AIShortCutKey.ps1](./Public/Disable-AIShortCutKey.ps1) |
 | Enable-AIShortCutKey | Enable the <kbd>ctrl+g</kbd> | [Enable-AIShortCutKey.ps1](./Public/Enable-AIShortCutKey.ps1) |
-
 
 ## Polyglot Interactive Notebooks
 
@@ -173,7 +175,6 @@ Copy and pasted into this README.md:
 | James Madison | 1809-1817 |
 | James Monroe | 1817-1825 |
 
-
 ## `ai` function
 
 The `ai` function calls that allows `piping` and `prompting` text. This is useful for chaining commands together.
@@ -194,7 +195,6 @@ ai "list of planets only names as json"
     "Neptune"
 ]
 ```
-
 
 ```powershell
 ai "list of planets only names as json" | ai 'convert to  xml'
@@ -244,7 +244,7 @@ Pipe the output of `git status` to `ai` to create a commit message.
 git status | ai "create a detailed git message"
 ```
 
-```
+```text
 Commit message:
 Added PowerShellAI.psd1, README.md, changelog.md, and Public/ai.ps1 to dcf-spike-piping-to-ai-function branch. Updated PowerShellAI.psd1 and README.md with new changes. Added changelog.md to track changes. Added Public/ai.ps1 to enable piping to AI function.
 ```
