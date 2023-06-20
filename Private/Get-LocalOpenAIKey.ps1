@@ -20,6 +20,6 @@ function Get-LocalOpenAIKey {
         $env:OpenAIKey
     } else {
         # https://help.openai.com/en/articles/5112595-best-practices-for-api-key-safety
-        $env:OPEN_AI_KEY
+        $env:OPENAI_API_KEY
     }
 }
