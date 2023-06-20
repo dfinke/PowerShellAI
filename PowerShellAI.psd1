@@ -38,6 +38,8 @@ The PowerShell AI module integrates with the OpenAI API and let's you easily acc
         'Get-OpenAIModelsUri'
         'Get-OpenAIModeration'
         'Get-OpenAIModerationsUri'
+        'Get-OpenAIBaseURI'
+        'Set-OpenAIBaseURI'
 
         'Get-OpenAIEditsUri'
         'Get-OpenAIEdit'
@@ -112,10 +114,10 @@ The PowerShell AI module integrates with the OpenAI API and let's you easily acc
 
     PrivateData       = @{
         PSData = @{
-            Category   = "PowerShell GPT Module"
-            Tags       = @("PowerShell", "GPT", "OpenAI")
-            ProjectUri = "https://github.com/dfinke/PowerShellAI"
-            LicenseUri = "https://github.com/dfinke/PowerShellAI/blob/master/LICENSE.txt"
+            Category   = 'PowerShell GPT Module'
+            Tags       = @('PowerShell', 'GPT', 'OpenAI')
+            ProjectUri = 'https://github.com/dfinke/PowerShellAI'
+            LicenseUri = 'https://github.com/dfinke/PowerShellAI/blob/master/LICENSE.txt'
         }
     }
 }
