@@ -1,3 +1,39 @@
+$script:CacheResponses = $false
+$script:CachedResponses = @{}
+
+function Set-OpenAIAPIOptions {
+    param (
+        [bool] $CacheResponses
+    )
+    $script:CacheResponses = $CacheResponses
+}
+
+function Get-OpenAICachedResponse {
+    param (
+        [hashtable] $Params
+    )
+    # Should probably use sha256 because the params contain the api key
+    $sha256 = [System.Security.Cryptography.SHA256Managed]::new()
+    $paramString = $Params | ConvertTo-Json -Depth 10
+    $paramBytes = [System.Text.Encoding]::Default.GetBytes($paramString)
+    $hashBytes = $sha256.ComputeHash($paramBytes)
+    $hashKey = [Convert]::ToBase64String($hashBytes)
+    
+    # Quick in-memory cache
+    if($script:CachedResponses.ContainsKey($hashKey)) {
+        $response = $script:CachedResponses[$hashKey]
+    } else {
+        $response = Invoke-RestMethodWithProgress -Params $params -NoProgress:$NoProgress
+        $script:CachedResponses[$hashKey] = $response
+    }
+
+    return $response
+}
+
+function Clear-OpenAIAPICache {
+    $script:CachedResponses = @{}
+}
+
 function Invoke-OpenAIAPI {
     <#
     .SYNOPSIS
@@ -74,5 +110,9 @@ function Invoke-OpenAIAPI {
     
     Write-Information "Thinking ..."
     
-    Invoke-RestMethodWithProgress -Params $params -NoProgress:$NoProgress
+    if($script:CacheResponses) {
+        Get-OpenAICachedResponse -Params $params -NoProgress:$NoProgress
+    } else {
+        Invoke-RestMethodWithProgress -Params $params -NoProgress:$NoProgress
+    }
 }
