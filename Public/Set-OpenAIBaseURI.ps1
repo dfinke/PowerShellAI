@@ -16,8 +16,11 @@ function Set-OpenAIBaseURI {
         [Parameter(Mandatory)]
         [ValidateScript({ if ($_.Length) { $true } else { throw 'OpenAI base URI cannot be empty.' } })]
         [ValidateNotNullOrEmpty()]
-        $Uri
+        [string] $Uri
     )
 
+    if ($Uri[-1] -eq '/') {
+        $Uri = $uri.SubString(0, $Uri.Length - 1)
+    }
     $Script:OpenAIBaseUri = $Uri
 }
