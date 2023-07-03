@@ -14,6 +14,12 @@ Describe 'Set-OpenAIBaseURI' -Tag 'Set-OpenAIBaseURI' {
         { Set-OpenAIBaseURI -Uri 'https://api.openai.com' } | Should -Not -Throw
     }
 
+    It 'Should remove slash at end' {
+        Set-OpenAIBaseURI -Uri 'https://api.openai.com/'
+        $actual = Get-OpenAIBaseURI
+        $actual | Should -Be 'https://api.openai.com'
+    }
+
     AfterAll {
         InModuleScope 'PowerShellAI' {
             #Reset module scope base OpeAI URI with fake OpenAI URI
