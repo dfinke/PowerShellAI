@@ -15,7 +15,7 @@ function Get-OpenAIKey {
     Reference: https://platform.openai.com/docs/api-reference/models
 	#>
 
-    $uri = "${Script:OpenAIBaseUri}/dashboard/user/api_keys"
+    $uri = "$(Get-OpenAIBaseURI)/dashboard/user/api_keys"
 
     Invoke-OpenAIAPI -Uri $uri
 }

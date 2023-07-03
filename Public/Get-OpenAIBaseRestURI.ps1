@@ -7,5 +7,5 @@ function Get-OpenAIBaseRestURI {
         Invoke-OpenAIAPI ((Get-GHBaseRestURI)+'/models')
     #>
 
-    "${Script:OpenAIBaseUri}/v1"
+    "$(Get-OpenAIBaseURI)/v1"
 }

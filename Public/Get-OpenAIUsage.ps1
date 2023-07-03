@@ -28,7 +28,7 @@ function Get-OpenAIUsage {
         [Switch]$OnlyLineItems
     )
 
-    $url = '{0}/dashboard/billing/usage?end_date={1}&start_date={2}' -f $Script:OpenAIBaseUri, $($endDate.toString('yyyy-MM-dd')), $($startDate.ToString('yyyy-MM-dd'))
+    $url = '{0}/dashboard/billing/usage?end_date={1}&start_date={2}' -f $(Get-OpenAIBaseURI), $($endDate.toString('yyyy-MM-dd')), $($startDate.ToString('yyyy-MM-dd'))
 
     $result = Invoke-OpenAIAPI $url |
     Add-Member -PassThru -MemberType NoteProperty -Name StartDate -Value $StartDate.ToShortDateString() -Force |
