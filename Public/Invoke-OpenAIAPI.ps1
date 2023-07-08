@@ -1,11 +1,38 @@
 $script:CacheResponses = $false
 $script:CachedResponses = @{}
+$script:CacheResponseDelayMilliseconds = 0
+$script:CacheStoragePath = $null
+
+function Export-CacheStorage {
+    [CmdletBinding()]
+    param ()
+
+    if($null -ne $script:CacheStoragePath) {
+        $script:CachedResponses | ConvertTo-Json -Depth 10 | Set-Content $script:CacheStoragePath
+    }
+}
 
 function Set-OpenAIAPIOptions {
     param (
-        [bool] $CacheResponses
+        [bool] $CacheResponses,
+        [int] $CacheResponseDelayMilliseconds
     )
+
+    if ($PSVersionTable.Platform -eq 'Unix') {
+        $Script:CacheStoragePath = Join-Path $env:HOME '~/PowerShellAI/ChatGPT/cache.json'
+    }
+    elseif ($env:APPDATA) {
+        $Script:CacheStoragePath = Join-Path $env:APPDATA 'PowerShellAI/ChatGPT/cache.json'
+    }
+
     $script:CacheResponses = $CacheResponses
+    $script:CacheResponseDelayMilliseconds = $CacheResponseDelayMilliseconds
+    
+    if($CacheResponses) {
+        if(Test-Path $script:CacheStoragePath) {
+            $script:CachedResponses = Get-Content -Raw -Path $script:CacheStoragePath | ConvertFrom-Json -Depth 10 -AsHashtable
+        }
+    }
 }
 
 function Get-OpenAICachedResponse {
@@ -25,6 +52,11 @@ function Get-OpenAICachedResponse {
     } else {
         $response = Invoke-RestMethodWithProgress -Params $params -NoProgress:$NoProgress
         $script:CachedResponses[$hashKey] = $response
+        Export-CacheStorage
+    }
+
+    if($script:CacheResponseDelayMilliseconds -gt 0) {
+        Start-Sleep -Milliseconds $script:CacheResponseDelayMilliseconds
     }
 
     return $response
