@@ -54,7 +54,7 @@ function Get-ChatAzureOpenAIURI {
         throw 'Azure Open AI ApiVersion not set'
     }
 
-    $uri = "$($options.Endpoint)/openai/deployments/$($options.DeploymentName)/chat/completions?api-version=$($options.ApiVersion)"
+    $uri = "{0}openai/deployments/{1}/chat/completions?api-version={2}" -f $options.Endpoint, $options.DeploymentName, $options.ApiVersion
 
     $uri
 }
