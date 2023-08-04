@@ -124,6 +124,66 @@ Describe "Invoke-RestMethodWithProgress" -Tag InvokeRestMethodWithProgress {
             Should -Invoke -CommandName Invoke-RestMethod -Times 1
             Should -Invoke -CommandName Start-Job -Times 0
         }
+        
+        It "should not use a background job if a proxy is configured by env var" {
+            Mock Get-Host {
+                return @{
+                    Name = "ConsoleHost"
+                }
+            }
+
+            Mock Invoke-RestMethod {
+                return "a happy web response from a web server"
+            }
+
+            Mock Start-Job { }
+
+            $params = @{
+                "Method" = "GET";
+                "Uri" = "http://localhost";
+            }
+            
+            $previousProxySettings = $env:HTTP_PROXY
+            $env:HTTP_PROXY = "http://example.com:3128"
+            $response = Invoke-RestMethodWithProgress -Params $params
+            $env:HTTP_PROXY = $previousProxySettings
+            
+            $response | Should -BeExactly "a happy web response from a web server"
+
+            Should -Invoke -CommandName Invoke-RestMethod -Times 1
+            Should -Invoke -CommandName Start-Job -Times 0
+        }
+
+        It "should not use a background job if a defaultproxy is configured for the current session" {
+            Mock Get-Host {
+                return @{
+                    Name = "ConsoleHost"
+                }
+            }
+
+            Mock Invoke-RestMethod {
+                return "a happy web response from a web server"
+            }
+
+            Mock Start-Job { }
+
+            $params = @{
+                "Method" = "GET";
+                "Uri" = "http://localhost";
+            }
+            
+            $previousProxySettings = [System.Net.WebRequest]::DefaultWebProxy
+            $proxyUri = New-Object System.Uri("http://example.com:3128")
+            $proxy = New-Object System.Net.WebProxy($proxyUri)
+            [System.Net.WebRequest]::DefaultWebProxy = $proxy
+            $response = Invoke-RestMethodWithProgress -Params $params
+            [System.Net.WebRequest]::DefaultWebProxy = $previousProxySettings
+            
+            $response | Should -BeExactly "a happy web response from a web server"
+
+            Should -Invoke -CommandName Invoke-RestMethod -Times 1
+            Should -Invoke -CommandName Start-Job -Times 0
+        }
 
         Describe "Get-APIEstimatedResponseTime Tests" {
             It "should return default response time when there's no record for a specific endpoint" {

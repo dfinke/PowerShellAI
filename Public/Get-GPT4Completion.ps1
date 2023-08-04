@@ -220,20 +220,33 @@ function New-ChatMessageTemplate {
             Valid values are 'user', 'system', and 'assistant'.
         .PARAMETER Content
             The content of the chat message.
+        .PARAMETER Name
+            The name of the author of this message. name is required if role is function, and it should be the name of the function whose response is in the content
         .EXAMPLE
             New-ChatMessageTemplate -Role 'user' -Content <#string#>
     #>
     [CmdletBinding()]
     param( 
-        [ValidateSet('user', 'system', 'assistant')]
+        [ValidateSet('user', 'system', 'assistant', 'function')]
         $Role,
-        $Content
+        $Content,
+        $Name
     )
 
-    [PSCustomObject]@{
+    $returnObject = [ordered]@{
         role    = $Role
         content = $Content
     }
+
+    if ($Role -eq 'function' -and $null -eq $Name) {
+        throw 'Name is required if role is function'
+    }
+    
+    if ($Name) {
+        $returnObject.name = $Name
+    }
+
+    [PSCustomObject]$returnObject
 }
 
 function New-ChatMessage {
@@ -392,10 +405,9 @@ function New-Chat {
 
     if (![string]::IsNullOrEmpty($Content)) {
         New-ChatSystemMessage -Content $Content
+        Get-GPT4Response
     }
     
-    # Export-ChatSession
-    Get-GPT4Response
 }
 
 function Test-ChatInProgress {

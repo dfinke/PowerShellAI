@@ -35,16 +35,33 @@ function Set-APIResponseTime {
     $script:EndpointResponseTimeSeconds[$endpointResponseTimeKey] = $ResponseTimeSeconds
 }
 
+function Test-HostSupportsRestMethodWithProgress {
+    # Check if the current host meets all the requirements to be able to send the restmethod to the background
+    
+    if($script:SupportedHosts -notcontains (Get-Host).Name) {
+        return $false
+    }
+
+    $currentLocation = Get-Location
+    if($currentLocation.Provider.Name -ne "FileSystem") {
+        return $false
+    }
+
+    if($null -ne [System.Net.WebRequest]::DefaultWebProxy.Address -or $null -ne $env:HTTP_PROXY) {
+        return $false
+    }
+
+    return $true
+}
+
 function Invoke-RestMethodWithProgress {
     param (
         [hashtable] $Params,
         $ProgressActivity = "Thinking..."
     )
 
-    $currentLocation = Get-Location
-
     # Some hosts can't support background jobs. It's best to opt-in to this feature by using a list of supported hosts
-    if($script:SupportedHosts -notcontains (Get-Host).Name -or $currentLocation.Provider.Name -ne "FileSystem") {
+    if(-not (Test-HostSupportsRestMethodWithProgress)) {
         return Invoke-RestMethod @Params
     }
 
@@ -55,6 +72,7 @@ function Invoke-RestMethodWithProgress {
         catch [System.IO.IOException] { <# unit tests don't have a console #> }
 
         Push-Location -StackName "RestMethodWithProgress"
+        $currentLocation = Get-Location
         if($currentLocation.Path -ne $currentLocation.ProviderPath) {
             Set-Location $currentLocation.ProviderPath
         }

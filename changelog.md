@@ -1,3 +1,28 @@
+# v0.9.1
+
+- Remove `Get-ChatCompletion` from `psd1`. It lives in `PowerShellAI.Functions`
+
+# v0.9.0
+
+- Added requirement to the `PowerShellAI.Functions` module
+    👉 https://github.com/dfinke/PowerShellAI.Functions
+
+# v0.8.2
+- Thank you [Darren Robinson](https://github.com/darrenjrobinson)
+    - max_tokens increased to what Azure OpenAI supports https://github.com/dfinke/PowerShellAI/issues/173
+
+- Added `$name` to `New-ChatMessageTemplate`. Required when a message has the role of function
+
+# v0.8.1
+
+- Thank you [Shaun Lawrie](https://github.com/ShaunLawrie)
+    - Fixed progress bars for users with proxies configured https://github.com/dfinke/PowerShellAI/pull/171
+- Added a new role `function` for messages
+
+# v0.8.0
+
+- Fix "[] is too short - 'messages'" https://github.com/dfinke/PowerShellAI/issues/163
+
 # v0.7.9
 - Thank you [merlinfrombelgium](https://github.com/merlinfrombelgium)
     - Introduce re-prompting after explain is chosen in copilot function 

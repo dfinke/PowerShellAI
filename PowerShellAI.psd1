@@ -1,6 +1,6 @@
 ﻿@{
     RootModule        = 'PowerShellAI.psm1'
-    ModuleVersion     = '0.7.9'
+    ModuleVersion     = '0.9.1'
     GUID              = '081ce7b4-6e63-41ca-92a7-2bf72dbad018'
     Author            = 'Douglas Finke'
     CompanyName       = 'Doug Finke'
@@ -9,6 +9,11 @@
     Description       = @'
 The PowerShell AI module integrates with the OpenAI API and let's you easily access the GPT models for text completion, image generation and more.
 '@
+
+    # Modules that must be imported into the global environment prior to importing this module
+    RequiredModules   = @(
+        @{ModuleName = 'PowerShellAI.Functions'; ModuleVersion = "0.1.0" ; GUID = "bd4306a8-d043-430b-b02c-813ab8330924" }
+    )
 
     FunctionsToExport = @(
         'Get-OpenAIEdit'

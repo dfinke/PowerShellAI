@@ -146,8 +146,7 @@ Describe "Chat Messages" -Tag ChatMessages {
         New-Chat
         
         $chatMessages = @(Get-ChatMessages)
-        $chatMessages.Count | Should -Be 1
-        $chatMessages[0].Content | Should -Be "Mocked Get-GPT4Completion call"
+        $chatMessages.Count | Should -Be 0
     }
 
     It 'Tests adding new chat system messages' {

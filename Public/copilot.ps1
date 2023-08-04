@@ -68,6 +68,7 @@ function copilot {
         [ValidateRange(0, 2)]
         [decimal]$temperature = 0.0,
         # The maximum number of tokens to generate. default 256
+        [ValidateRange(1, 4000)]
         $max_tokens = 256,
         # Don't show prompt for choice
         [Switch]$Raw

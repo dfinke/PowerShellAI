@@ -94,6 +94,11 @@ Describe "Get-GPT4Completion" -Tag GPT4Completion {
         $actual = Test-ChatInProgress
         $actual | Should -BeTrue
     }
+
+    It 'Test New-ChatMessageTemplate function exists' {
+        $actual = Get-Command New-ChatMessageTemplate -ErrorAction SilentlyContinue
+        $actual | Should -Not -BeNullOrEmpty
+    }
     
     It 'Test New-ChatMessageTemplate has these parameters' {
         $actual = Get-Command New-ChatMessageTemplate
@@ -102,13 +107,39 @@ Describe "Get-GPT4Completion" -Tag GPT4Completion {
 
         $keys.Contains("Role") | Should -BeTrue
         $keys.Contains("Content") | Should -BeTrue
+        $keys.Contains("Name") | Should -BeTrue
+    }
+
+    It 'Test New-ChatMessageTemplate Role paramater has this set' {
+        $actual = Get-Command New-ChatMessageTemplate
+
+        $validateSet = $actual.Parameters.Role.Attributes | Where-Object { $_ -is [System.Management.Automation.ValidateSetAttribute] }
+        $validateSet | Should -Not -BeNullOrEmpty
+        $validateSet.ValidValues.Count | Should -Be 4
+
+        $validateSet.ValidValues[0] | Should -BeExactly 'user'
+        $validateSet.ValidValues[1] | Should -BeExactly 'system'
+        $validateSet.ValidValues[2] | Should -BeExactly 'assistant'
+        $validateSet.ValidValues[3] | Should -BeExactly 'function'
+    }
+
+    It 'Test New-ChatMessageTemplate throws when role=function and name=null' {
+        {New-ChatMessageTemplate -Role function} | Should -Throw "Name is required if role is function"
+    }
+
+    It 'Test New-ChatMessageTemplate role is function and name provided' {
+        $actual = New-ChatMessageTemplate -Role function -Content 'It is hot!' -Name 'Get-Weather'
+
+        $actual | Should -Not -BeNullOrEmpty
+        $actual.role | Should -Be 'function'
+        $actual.name | Should -BeExactly 'Get-Weather'
+        $actual.content | Should -BeExactly 'It is hot!'
     }
 
     It 'Test if Add-ChatMessage has these parameters' {
         $actual = Get-Command Add-ChatMessage
         
         $keys = $actual.Parameters.keys
-
         $keys.Contains("Message") | Should -BeTrue
     }
 
@@ -137,8 +168,13 @@ Describe "Get-GPT4Completion" -Tag GPT4Completion {
                 content = 'assistant test'
             })
 
+        Add-ChatMessage -Message ([PSCustomObject]@{
+                role    = 'function'
+                content = 'function test'
+            })
+
         $actual = Get-ChatMessages
-        $actual.Count | Should -Be 3
+        $actual.Count | Should -Be 4
 
         $actual[0].role | Should -Be 'system'
         $actual[0].content | Should -Be 'system test'
@@ -148,6 +184,9 @@ Describe "Get-GPT4Completion" -Tag GPT4Completion {
 
         $actual[2].role | Should -Be 'assistant'
         $actual[2].content | Should -Be 'assistant test'
+
+        $actual[3].role | Should -Be 'function'
+        $actual[3].content | Should -Be 'function test'
     }
 
     It 'Test New-ChatMessageTemplate creates and populates template' {
