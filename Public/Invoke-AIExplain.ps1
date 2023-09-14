@@ -48,7 +48,10 @@ function Invoke-AIExplain {
         openai { $result = $cli | ai $prompt -max_tokens $max_tokens }
 
         # If 'azureopenai' is the provider
-        azureopenai { $result = $cli | chat $prompt }
+        azureopenai {
+			$prompt += $cli
+			$result = chat $prompt
+        }
 
         # Default
         Default { $result = $cli | ai $prompt -max_tokens $max_tokens }
