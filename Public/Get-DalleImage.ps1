@@ -4,13 +4,12 @@ function Get-DalleImage {
         [Parameter(Mandatory)]
         [string]$Description,
 
-        [Parameter(ParameterSetName = 'Dalle2')]
         [ValidateSet('256', '512', '1024')]
         [string]$Size = '1024',
 
         [Parameter(ParameterSetName = 'Dalle3')]
-        [ValidateSet('1024x1024', '1024x1792', '1792x1024')]
-        [string]$Size = '1024x1024',
+        [ValidateSet('landscape', 'portrait', 'square')]
+        [string]$Orientation = 'landscape',
 
         [Parameter(ParameterSetName = 'Dalle3')]
         [ValidateSet('hd', 'standard')]
@@ -36,16 +35,28 @@ function Get-DalleImage {
                 $Size = '1024'
             }
             # Remove DALL-E 3 specific parameters
-            $PSBoundParameters.Remove('Quality') 
+            $PSBoundParameters.Remove('Quality')
             $PSBoundParameters.Remove('Style')
+            $PSBoundParameters.Remove('Orientation')
             # Adjust size format for DALL-E 2
-            $Size = "$Size`x$Size"
+            $targetSize = "$Size`x$Size"
+        }
+        elseif ($ModelVersion -eq '3') {
+            if (-not $PSBoundParameters.ContainsKey('Size')) {
+                $Orientation = 'landscape'
+            }
+            # format size according to $Orientation
+            $targetSize = switch ($Orientation) {
+                'landscape' { '1792x1024' }
+                'portrait' { '1024x1792' }
+                'square' { '1024x1024' }
+            }
         }
 
         # Prepare the request body
         $body = @{
             prompt = $Description
-            size   = $Size
+            size   = $targetSize
             model  = "dall-e-$ModelVersion"
         }
 
