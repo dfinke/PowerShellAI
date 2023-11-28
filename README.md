@@ -19,7 +19,7 @@
   <!-- <a href="https://github.com/dfinke/PSAdvantage/blob/master/LICENSE">
     <img src="https://img.shields.io/badge/License-Apache-orange.svg?logo=openbsd&style=flat-square">
   </a> -->
-</p> 
+</p>
 
 <p align="center">
    • <a href="https://github.com/dfinke/PowerShellAI/wiki">Documentation</a> •
@@ -29,15 +29,15 @@
 
 ## A User-Friendly Module for OpenAI's GPT-3 and DALL-E API
 
-`PowerShellAI` is a ***community-maintained*** PowerShell module designed to simplify the use of OpenAI's GPT-3 language model and DALL-E API. It empowers users to effortlessly build complex language-powered applications, regardless of their level of experience.
+`PowerShellAI` is a **_community-maintained_** PowerShell module designed to simplify the use of OpenAI's GPT-3 language model and DALL-E API. It empowers users to effortlessly build complex language-powered applications, regardless of their level of experience.
 
 `PowerShellAI` is cross-platform and runs seamlessly on Windows, Linux, and MacOS.
 
-Getting started with `PowerShellAI` is easy. Simply install the module from the gallery using the following command: 
+Getting started with `PowerShellAI` is easy. Simply install the module from the gallery using the following command:
 
 `Install-Module -Name PowerShellAI`
 
-The repository includes a comprehensive list of functions that enable users to interact with GPT-3 and DALL-E, along with examples of how to use them at the command line or in scripts. 
+The repository includes a comprehensive list of functions that enable users to interact with GPT-3 and DALL-E, along with examples of how to use them at the command line or in scripts.
 
 The video demos showcase the many possibilities of the module and how you can leverage its functions to best suit your needs.
 
@@ -46,12 +46,14 @@ Whether you're a seasoned developer or just getting started with AI, `PowerShell
 <br/>
 <br/>
 
->![](./media/AIReplace.png)
+> ![](./media/AIReplace.png)
 
 # Unleash the Power of Artificial Intelligence with PowerShell
+
 Welcome to the PowerShell Artificial Intelligence repository! Here, you will find a collection of powerful PowerShell scripts that will enable you to easily integrate AI into your projects and take them to the next level. Imagine being able to interact directly with OpenAI's GPT AI with just a few simple commands. With this module, it's now possible.
 
 ## Get Ahead of the Game
+
 By using this module, you'll have the ability to add cutting-edge AI functionality to your projects without needing to have a deep understanding of the underlying technology. This means you can stay focused on what you do best while still being able to work with the latest and greatest.
 
 ## Start Your AI Journey Today
@@ -64,31 +66,31 @@ In the PowerShell console:
 Install-Module -Name PowerShellAI
 ```
 
-Get/Create your OpenAI API key from [ https://platform.openai.com/account/api-keys]( https://platform.openai.com/account/api-keys) and then set as *secure string* with `Set-OpenAIKey` or as *plain text* with `$env:OpenAIKey`.
+Get/Create your OpenAI API key from [ https://platform.openai.com/account/api-keys](https://platform.openai.com/account/api-keys) and then set as _secure string_ with `Set-OpenAIKey` or as _plain text_ with `$env:OpenAIKey`.
 
 ## Examples
+
 Check out these PowerShell scripts to see how easy it is to get started with AI in PowerShell:
 
-|PS Script | Description | Location
-|--|--|--|
-| ai | Experimental AI function that you can pipe all sorts of things into and get back a completion | [ai.ps1](./Public/ai.ps1)
-| copilot | Makes the request to GPT, parses the response and displays it in a box and then prompts the user to run the code or not. | [copilot.ps1](./Public/copilot.ps1)
-| Get-GPT3Completion - alias `gpt` | Get a completion from the OpenAI GPT-3 API | [Get-GPT3Completion.ps1](./Public/Get-GPT3Completion.ps1)
-| Invoke-AIErrorHelper | Helper function let ChatGPT add more info about errors | [Invoke-AIErrorHelper.ps1](./Public/Invoke-AIErrorHelper.ps1)
-| Invoke-AIExplain | Utilizes the OpenAI GPT-3 API to offer explanations for the most recently run command, and more. | [Invoke-AIExplain.ps1](./Public/Invoke-AIExplain.ps1)
-| Get-OpenAIEdit | Given a prompt and an instruction, the model will return an edited version of the prompt | [Get-OpenAIEdit.ps1](./Public/Get-OpenAIEdit.ps1)
-| Get-DalleImage | Get an image from the OpenAI DALL-E API | [Get-DalleImage.ps1](./Public/Get-DalleImage.ps1)
-| Set-DalleImageAsWallpaper | Set the image from the OpenAI DALL-E API as the wallpaper | [Set-DalleImageAsWallpaper.ps1](./Public/Set-DalleImageAsWallpaper.ps1)
-|Get-OpenAIUsage|Returns a billing summary of OpenAI API usage for your organization
-| Disable-AIShortCutKey | Disable the <kbd>ctrl+g</kbd> shortcut key go getting completions | [Disable-AIShortCutKey.ps1](./Public/Disable-AIShortCutKey.ps1) |
-| Enable-AIShortCutKey | Enable the <kbd>ctrl+g</kbd> | [Enable-AIShortCutKey.ps1](./Public/Enable-AIShortCutKey.ps1) |
-
+| PS Script                        | Description                                                                                                              | Location                                                                |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
+| ai                               | Experimental AI function that you can pipe all sorts of things into and get back a completion                            | [ai.ps1](./Public/ai.ps1)                                               |
+| copilot                          | Makes the request to GPT, parses the response and displays it in a box and then prompts the user to run the code or not. | [copilot.ps1](./Public/copilot.ps1)                                     |
+| Get-GPT3Completion - alias `gpt` | Get a completion from the OpenAI GPT-3 API                                                                               | [Get-GPT3Completion.ps1](./Public/Get-GPT3Completion.ps1)               |
+| Invoke-AIErrorHelper             | Helper function let ChatGPT add more info about errors                                                                   | [Invoke-AIErrorHelper.ps1](./Public/Invoke-AIErrorHelper.ps1)           |
+| Invoke-AIExplain                 | Utilizes the OpenAI GPT-3 API to offer explanations for the most recently run command, and more.                         | [Invoke-AIExplain.ps1](./Public/Invoke-AIExplain.ps1)                   |
+| Get-OpenAIEdit                   | Given a prompt and an instruction, the model will return an edited version of the prompt                                 | [Get-OpenAIEdit.ps1](./Public/Get-OpenAIEdit.ps1)                       |
+| Get-DalleImage                   | Get an image from the OpenAI DALL-E API                                                                                  | [Get-DalleImage.ps1](./Public/Get-DalleImage.ps1)                       |
+| Set-DalleImageAsWallpaper        | Set the image from the OpenAI DALL-E API as the wallpaper                                                                | [Set-DalleImageAsWallpaper.ps1](./Public/Set-DalleImageAsWallpaper.ps1) |
+| Get-OpenAIUsage                  | Returns a billing summary of OpenAI API usage for your organization                                                      |
+| Disable-AIShortCutKey            | Disable the <kbd>ctrl+g</kbd> shortcut key go getting completions                                                        | [Disable-AIShortCutKey.ps1](./Public/Disable-AIShortCutKey.ps1)         |
+| Enable-AIShortCutKey             | Enable the <kbd>ctrl+g</kbd>                                                                                             | [Enable-AIShortCutKey.ps1](./Public/Enable-AIShortCutKey.ps1)           |
 
 ## Polyglot Interactive Notebooks
 
-| Notebook | Description | Location
-|--|--|--|
-| OpenAI Settings | A notebook shows how to get OpenAI dashboard info | [Settings.ipynb](CommunityContributions/05-Settings/Settings.ipynb)
+| Notebook        | Description                                       | Location                                                            |
+| --------------- | ------------------------------------------------- | ------------------------------------------------------------------- |
+| OpenAI Settings | A notebook shows how to get OpenAI dashboard info | [Settings.ipynb](CommunityContributions/05-Settings/Settings.ipynb) |
 
 <br/>
 
@@ -96,14 +98,14 @@ Check out these PowerShell scripts to see how easy it is to get started with AI 
 
 Here are some videos of `PowerShellAI` in action:
 
-| Description | YouTube Video |
-|--|--|
-| Quick Demo of PowerShellAI | <a href="https://youtu.be/fpq9TDpaCuU"><img src="https://img.youtube.com/vi/fpq9TDpaCuU/0.jpg" width="200"> |
-| Using PowerShell with OpenAI GPT in the console with a shortcut key | <a href="https://youtu.be/Y2fJki6r4mI"><img src="https://img.youtube.com/vi/Y2fJki6r4mI/0.jpg" width="200"> |
-| PowerShell AI - `copilot` at the command line | <a href="https://youtu.be/JrNBvEm6E7Q"><img src="https://img.youtube.com/vi/JrNBvEm6E7Q/0.jpg" width="200"> |
-| PowerShell AI - new `ai` function | <a href="https://youtu.be/-mlkUVUPZHU"><img src="https://img.youtube.com/vi/-mlkUVUPZHU/0.jpg" width="200"> |
-| New-Spreadsheet script: PowerShell + ChatGPT + Excel | <a href="https://youtu.be/Aehsgtll1CA"><img src="https://img.youtube.com/vi/Aehsgtll1CA/0.jpg" width="200"> |
-| Invoke-AIErrorHelper: Lets ChatGPT provide additional information and context about errors | <a href="https://youtu.be/uwDAcIiXqz0"><img src="https://img.youtube.com/vi/uwDAcIiXqz0/0.jpg" width="200"> |
+| Description                                                                                                        | YouTube Video                                                                                               |
+| ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------- |
+| Quick Demo of PowerShellAI                                                                                         | <a href="https://youtu.be/fpq9TDpaCuU"><img src="https://img.youtube.com/vi/fpq9TDpaCuU/0.jpg" width="200"> |
+| Using PowerShell with OpenAI GPT in the console with a shortcut key                                                | <a href="https://youtu.be/Y2fJki6r4mI"><img src="https://img.youtube.com/vi/Y2fJki6r4mI/0.jpg" width="200"> |
+| PowerShell AI - `copilot` at the command line                                                                      | <a href="https://youtu.be/JrNBvEm6E7Q"><img src="https://img.youtube.com/vi/JrNBvEm6E7Q/0.jpg" width="200"> |
+| PowerShell AI - new `ai` function                                                                                  | <a href="https://youtu.be/-mlkUVUPZHU"><img src="https://img.youtube.com/vi/-mlkUVUPZHU/0.jpg" width="200"> |
+| New-Spreadsheet script: PowerShell + ChatGPT + Excel                                                               | <a href="https://youtu.be/Aehsgtll1CA"><img src="https://img.youtube.com/vi/Aehsgtll1CA/0.jpg" width="200"> |
+| Invoke-AIErrorHelper: Lets ChatGPT provide additional information and context about errors                         | <a href="https://youtu.be/uwDAcIiXqz0"><img src="https://img.youtube.com/vi/uwDAcIiXqz0/0.jpg" width="200"> |
 | Invoke-AIExplain: Utilizes the OpenAI GPT-3 API to offer explanations for the most recently run command, and more. | <a href="https://youtu.be/pbwLok0krCQ"><img src="https://img.youtube.com/vi/pbwLok0krCQ/0.jpg" width="200"> |
 
 <br/>
@@ -112,6 +114,7 @@ Here are some videos of `PowerShellAI` in action:
 ## What it looks like
 
 ### Setting AzureOpenAI as the default chat API provider
+
 ```powershell
 set-chatAPIProvider AzureOpenAI
 ```
@@ -122,6 +125,7 @@ Set-AzureOpenAI -ApiKey 'API Key' -Endpoint https://endpoint.azure-api.net -Depl
 ```
 
 ### Setting OpenAI as the default chat API provider
+
 ```powershell
 Set-ChatAPIProvider OpenAI
 ```
@@ -136,9 +140,9 @@ $pass = [Environment]::GetEnvironmentVariable('OpenAIKey', 'Machine')
 Set-OpenAIKey -Key ($pass | ConvertTo-SecureString -AsPlainText -Force)
 ```
 
-***Note:*** One of the above chat API provider has to be set before executing any of the below commands.
+**_Note:_** One of the above chat API provider has to be set before executing any of the below commands.
 
-> ***Note:*** You can use the `gpt` alias for `Get-GPT3Completion`
+> **_Note:_** You can use the `gpt` alias for `Get-GPT3Completion`
 
 ```powershell
 Get-GPT3Completion "list of planets only names as json"
@@ -192,14 +196,13 @@ Get-GPT3Completion "list of planets only names as xml"
 
 Copy and pasted into this README.md:
 
-| President | Term |
-|----------|------|
+| President         | Term      |
+| ----------------- | --------- |
 | George Washington | 1789-1797 |
-| John Adams | 1797-1801 |
-| Thomas Jefferson | 1801-1809 |
-| James Madison | 1809-1817 |
-| James Monroe | 1817-1825 |
-
+| John Adams        | 1797-1801 |
+| Thomas Jefferson  | 1801-1809 |
+| James Madison     | 1809-1817 |
+| James Monroe      | 1817-1825 |
 
 ## `ai` function
 
@@ -210,18 +213,8 @@ ai "list of planets only names as json"
 ```
 
 ```json
-[
-    "Mercury",
-    "Venus",
-    "Earth",
-    "Mars",
-    "Jupiter",
-    "Saturn",
-    "Uranus",
-    "Neptune"
-]
+["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
 ```
-
 
 ```powershell
 ai "list of planets only names as json" | ai 'convert to  xml'
@@ -335,7 +328,7 @@ function greet {
 
 Creates a new spreadsheet from a prompt
 
-*Note*: This requires the ImportExcel module to be installed
+_Note_: This requires the ImportExcel module to be installed
 
 ```powershell
 Install-Module -Name ImportExcel
@@ -357,16 +350,26 @@ Try it out: `New-Spreadsheet "list of first 5 US presidents name, term"`
 
 # DALL-E
 
-The [DALL-E](https://openai.com/blog/dall-e/) API is a new API from OpenAI that allows you to generate images from text
+The DALL-E API provides access to two different models for generating images from textual descriptions: DALL-E 2 and DALL-E 3. Each model has its own features and capabilities, and usage might differ slightly.
 
-Use this function to generate an image from text and set it as your desktop background.
+## DALL-E 2
 
-```powershell
-Set-DalleImageAsBackground "A picture of a cat"
-```
-
-You can also use the `Get-DalleImage` function to get the image and it saves to a temp file, ready to use.
+To generate images using DALL-E 2, you can utilize the `Get-DalleImage` function with the following parameters specific to DALL-E 2:
 
 ```powershell
-Get-DalleImage "A picture of a cat"
+Get-DalleImage -Description "<description>" -Size "1024" -ModelVersion "2"
 ```
+
+The `-Size` parameter supports `256`, `512`, or `1024` (representing the image resolution), and the `-ModelVersion` should be set to `"2"`.
+
+## DALL-E 3
+
+For generating images with DALL-E 3, the function accepts additional parameters that allow for more refined control over the output image:
+
+```powershell
+Get-DalleImage -Description "<description>" -Size "1024x1024" -Quality "hd" -Style "natural" -ModelVersion "3"
+```
+
+In DALL-E 3, `-Size` can be specified with dimensions such as `1024x1024`, and you can choose image `-Quality` as either `"hd"` (high definition) or `"standard"`. The `-Style` parameter lets you define the artistic style of the image, like `"natural"` or `"vivid"`. The `-ModelVersion` should be set to `"3"`.
+
+For both versions, replace `<description>` with a text description of the image you want to generate. The generated image will be saved to a temporary file, and the path to this file will be returned by the function.
