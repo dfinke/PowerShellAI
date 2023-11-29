@@ -82,7 +82,7 @@ function Get-DalleImage {
             $targetSize = "$Size`x$Size"
         }
         elseif ($ModelVersion -eq '3') {
-            if (-not $PSBoundParameters.ContainsKey('Size')) {
+            if (-not $PSBoundParameters.ContainsKey('Orientation')) {
                 $Orientation = 'landscape'
             }
             # format size according to $Orientation

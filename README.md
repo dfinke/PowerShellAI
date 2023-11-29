@@ -360,16 +360,16 @@ To generate images using DALL-E 2, you can utilize the `Get-DalleImage` function
 Get-DalleImage -Description "<description>" -Size "1024" -ModelVersion "2"
 ```
 
-The `-Size` parameter supports `256`, `512`, or `1024` (representing the image resolution), and the `-ModelVersion` should be set to `"2"`.
+The `-Size` parameter specifies the image dimensions and supports `256`, `512`, or `1024` (where the image will be square), and the `-ModelVersion` should be set to `"2"`.
 
 ## DALL-E 3
 
-For generating images with DALL-E 3, the function accepts additional parameters that allow for more refined control over the output image:
+For generating images with DALL-E 3, the function accepts different parameters that provide more options for the output image:
 
 ```powershell
-Get-DalleImage -Description "<description>" -Size "1024x1024" -Quality "hd" -Style "natural" -ModelVersion "3"
+Get-DalleImage -Description "<description>" -Orientation "landscape" -Quality "hd" -Style "natural" -ModelVersion "3"
 ```
 
-In DALL-E 3, `-Size` can be specified with dimensions such as `1024x1024`, and you can choose image `-Quality` as either `"hd"` (high definition) or `"standard"`. The `-Style` parameter lets you define the artistic style of the image, like `"natural"` or `"vivid"`. The `-ModelVersion` should be set to `"3"`.
+In DALL-E 3, `-Orientation` determines the aspect ratio and size of the image (`landscape` will produce `1792x1024`, `portrait` `1024x1792`, and `square` `1024x1024`). The `-Quality` parameter allows you to specify image quality as either `"hd"` (high definition) or `"standard"`, and the `-Style` parameter lets you choose the visual style of the image - `"natural"` for realistic images or `"vivid"` for more dramatic imagery. The `-ModelVersion` should be set to `"3"`.
 
 For both versions, replace `<description>` with a text description of the image you want to generate. The generated image will be saved to a temporary file, and the path to this file will be returned by the function.
