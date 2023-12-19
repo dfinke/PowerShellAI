@@ -40,8 +40,23 @@ function Invoke-AIExplain {
     $prompt = 'You are running powershell on ' + $PSVersionTable.Platform
     $prompt += " Please explain the following:"
     
-    $result = $cli | ai $prompt -max_tokens $max_tokens
-    
+    # Dynamically determine which OpenAI service is being used
+    $provider = $null
+    $provider = Get-ChatAPIProvider
+    switch ($provider.tolower()) {
+        # If 'openai' is the provider
+        openai { $result = $cli | ai $prompt -max_tokens $max_tokens }
+
+        # If 'azureopenai' is the provider
+        azureopenai {
+			$prompt += $cli
+			$result = chat $prompt
+        }
+
+        # Default
+        Default { $result = $cli | ai $prompt -max_tokens $max_tokens }
+    }
+
     Write-Codeblock -Text $cli -SyntaxHighlight
     $result
 }
