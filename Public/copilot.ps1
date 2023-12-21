@@ -86,7 +86,20 @@ function copilot {
     $prompt = "{0} {1}: {2}`n" -f $SystemPrompt, $promptComments, $inputPrompt
     $prompt += '```'
 
-    $completion = Get-GPT3Completion -prompt $prompt -max_tokens $max_tokens -temperature $temperature -stop '```'
+    # Dynamically determine which OpenAI service is being used
+    $provider = $null    
+    $provider = Get-ChatAPIProvider
+    switch ($provider.tolower()) {
+        # If 'openai' is the provider
+        openai { $completion = Get-GPT3Completion -prompt $prompt -max_tokens $max_tokens -temperature $temperature -stop '```' }
+
+        # If 'azureopenai' is the provider
+        azureopenai { $completion = Get-GPT4Completion -Content $prompt -temperature $temperature }
+
+        # Default
+        Default { $completion = Get-GPT3Completion -prompt $prompt -max_tokens $max_tokens -temperature $temperature -stop '```' }
+    }
+
     $completion = $completion -split "`n"
     
     if ($completion[0] -ceq 'powershell') {
