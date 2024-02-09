@@ -32,8 +32,8 @@ function Get-OpenAIEdit {
 		[Parameter(Mandatory = $true, Position = 1)]
 		$Instruction,
 		[Parameter()]
-		[ValidateSet('text-davinci-edit-001', 'code-davinci-edit-001')]
-		$model = 'code-davinci-edit-001',
+		[ValidateSet('text-davinci-edit-001', 'code-davinci-edit-001', 'gpt-3.5-turbo-instruct')]
+		$model = 'gpt-3.5-turbo-instruct',
 		[Parameter()]
 		$numberOfEdits = 1,
 		[ValidateRange(0, 2)]
