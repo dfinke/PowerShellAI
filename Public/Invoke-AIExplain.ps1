@@ -37,10 +37,21 @@ function Invoke-AIExplain {
         $cli = (Get-History | Select-Object -last 1).CommandLine 
     }
         
+    write-host $cli 
     $prompt = 'You are running powershell on ' + $PSVersionTable.Platform
-    $prompt += " Please explain the following:"
+    $prompt += " Please explain the following: "
     
-    $result = $cli | ai $prompt -max_tokens $max_tokens
+    # Dynamically determine which OpenAI service is being used
+    $provider = $null    
+    $provider = Get-ChatAPIProvider
+    switch ($provider.tolower()) {
+        openai { $result = $cli | ai $prompt -max_tokens $max_tokens }
+        azureopenai {
+            $prompt += $cli 
+            $result = Get-GPT4Completion -Content $prompt -max_tokens $max_tokens 
+        }
+        Default { $result = $cli | ai $prompt -max_tokens $max_tokens }
+    }
     
     Write-Codeblock -Text $cli -SyntaxHighlight
     $result

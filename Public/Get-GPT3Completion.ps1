@@ -10,7 +10,7 @@ function Get-GPT3Completion {
         The prompt to generate completions for
 
         .PARAMETER model
-        ID of the model to use. Defaults to 'text-davinci-003'
+        ID of the model to use. Defaults to 'gpt-3.5-turbo-instruct'
 
         .PARAMETER temperature
         The temperature used to control the model's likelihood to take risky actions. Higher values means the model will take more risks. Try 0.9 for more creative applications, and 0 (argmax sampling) for ones with a well-defined answer. Defaults to 0
@@ -38,7 +38,7 @@ function Get-GPT3Completion {
     param(
         [Parameter(Mandatory)]
         $prompt,
-        $model = 'text-davinci-003',
+        $model = 'gpt-3.5-turbo-instruct',
         [ValidateRange(0, 2)]
         [decimal]$temperature = 0.0,
         [ValidateRange(1, 2048)]

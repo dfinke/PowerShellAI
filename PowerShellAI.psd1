@@ -1,10 +1,10 @@
 @{
     RootModule        = 'PowerShellAI.psm1'
-    ModuleVersion     = '0.9.3'
+    ModuleVersion     = '0.9.7'
     GUID              = '081ce7b4-6e63-41ca-92a7-2bf72dbad018'
     Author            = 'Douglas Finke'
     CompanyName       = 'Doug Finke'
-    Copyright         = 'c 2023 All rights reserved.'
+    Copyright         = 'c 2024 All rights reserved.'
 
     Description       = @'
 The PowerShell AI module integrates with the OpenAI API and let's you easily access the GPT models for text completion, image generation and more.
@@ -78,6 +78,7 @@ The PowerShell AI module integrates with the OpenAI API and let's you easily acc
         # Azure OpenAI
         'Get-ChatAPIProvider'
         'Get-ChatAzureOpenAIURI'
+        'Get-AOAIDalleImage'
         'Get-AzureOpenAIOptions'
         'Reset-AzureOpenAIOptions'
         'Set-AzureOpenAI'

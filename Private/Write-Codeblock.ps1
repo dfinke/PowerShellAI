@@ -61,6 +61,13 @@ function Write-Codeblock {
         [string] $Theme = "Github"
     )
 
+    # Fallback if the console host doesn't expose window dimensions, these are required for token highlighting
+    if(!$Host.UI.RawUI.WindowSize.Width) {
+        Write-Verbose "Could not write codeblock with syntax highlighting because this console host is not exposing window dimentsions."
+        Write-Host -ForegroundColor Gray $Text
+        return
+    }
+
     $ForegroundRgb = $script:Themes[$Theme].ForegroundRgb
     $BackgroundRgb = $script:Themes[$Theme].BackgroundRgb
 

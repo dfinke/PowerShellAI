@@ -452,20 +452,26 @@ function Get-GPT4Completion {
     [CmdletBinding()]
     [alias("chat")]
     param(
-        [Parameter(Mandatory)]
+        [Parameter(Mandatory = $true, ValueFromPipeline = $true)]
         $Content,
-        [decimal]$temperature
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [decimal]$temperature,
+        # The maximum number of tokens to generate. default 256
+        [Parameter(Mandatory = $false, ValueFromPipeline = $true)]
+        [ValidateRange(1, 4000)]
+        $max_tokens = 256
     )
 
     New-ChatUserMessage -Content $Content
 
-    Get-GPT4Response -Temperature $temperature
+    Get-GPT4Response -Temperature $temperature -max_tokens $max_tokens
 }
 
 function Get-GPT4Response {
     [CmdletBinding()]
     param(
-        [decimal]$Temperature
+        [decimal]$Temperature,
+        $max_tokens
     )
 
     $payload = Get-ChatPayload -AsJson
@@ -480,6 +486,10 @@ function Get-GPT4Response {
     
     if ($Temperature) {
         (Get-ChatSessionOptions)['temperature'] = $Temperature
+    }
+
+    if ($max_tokens) {
+        (Get-ChatSessionOptions)['max_tokens'] = $max_tokens
     }
 
     $result = Invoke-OpenAIAPI -Uri $uri -Method 'Post' -Body $body 

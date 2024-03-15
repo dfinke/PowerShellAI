@@ -1,3 +1,19 @@
+# v0.9.7
+- Thank you [Darren Robinson](https://github.com/darrenjrobinson)
+    - New Get-AOAIDalleImage cmdlet supports Azure Open AI
+
+# v0.9.6
+
+- Updated default model to use gpt-3.5-turbo-instruct
+
+# v0.9.5
+- Thank you [Darren Robinson](https://github.com/darrenjrobinson)
+    - Update Copilot to support Azure Open AI
+
+# v0.9.4
+
+- [Shaun Lawrie](https://twitter.com/shaun_lawrie) - Fallback to gray text for the codeblock if the console host doesn't expose window dimensions. This fixes [#200](https://github.com/dfinke/PowerShellAI/issues/200) and potentially [#199](https://github.com/dfinke/PowerShellAI/issues/199) as well.
+
 # v0.9.2
 
 - Support latest OpenAI API models gpt-4-1106-preview and gpt-3.5-turbo-1106

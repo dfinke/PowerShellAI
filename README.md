@@ -7,9 +7,16 @@
   </a>
   <br/>
   <br/>
-  <a href="https://twitter.com/dfinke">
+  <!-- <a href="https://twitter.com/dfinke">
     <img src="https://img.shields.io/badge/Twitter-@dfinke-blue.svg?logo=twitter&style=flat-square">
+  </a> -->
+  <!-- https://img.shields.io/twitter/follow/dfinke.svg?style=social&label=Follow%20%40dfinke -->
+  <a href="https://x.com/dfinke">
+    <img src="https://img.shields.io/twitter/follow/dfinke.svg?style=social&label=Follow%20%40dfinke">
   </a>
+  <a href="https://youtube.com/@dougfinke">
+    <img src="https://img.shields.io/youtube/channel/subscribers/UCP47ZkO5EDkoI2sr-3P4ShQ">
+  </a>  
   <a href="https://www.powershellgallery.com/packages/PowerShellAI/">
     <img src="https://img.shields.io/powershellgallery/v/PowerShellAI.svg">
   </a>  
@@ -24,6 +31,26 @@
 <p align="center">
    • <a href="https://github.com/dfinke/PowerShellAI/wiki">Documentation</a> •
 </p>
+
+# **Big Announcement**
+- I created a new module called [PowerShellAIAssistant](https://github.com/dfinke/PowerShellAIAssistant).
+- You can get it: `Install-Module -Name PowerShellAIAssistant`
+- Highly recommend you check it out.
+
+> You can just type 'ai "your question here"' and it will return an answer.
+
+> The module exposes a lot of handy functions that interact directly with the new Assistants API, so you can also build scripts or spin up and manage different assistants/threads yourself.
+
+```
+The Assistants API is a tool that lets you create your own AI assistants in your applications. 
+Think of it as building a digital helper that can follow instructions and use different tools and knowledge to answer questions or solve problems. 
+
+It has three types of tools for different tasks like coding, information retrieval, and executing specific functions. 
+
+OpenAI is adding more, and you'll also be able to add your own tools to customize your assistant's abilities.
+```
+
+> All can programmatically automate via PowerShell.
 
 # PowerShellAI
 
@@ -71,6 +98,21 @@ Get/Create your OpenAI API key from [ https://platform.openai.com/account/api-ke
 ## Examples
 
 Check out these PowerShell scripts to see how easy it is to get started with AI in PowerShell:
+=======
+|PS Script | Description | Location
+|--|--|--|
+| ai | Experimental AI function that you can pipe all sorts of things into and get back a completion | [ai.ps1](./Public/ai.ps1)
+| copilot | Makes the request to GPT, parses the response and displays it in a box and then prompts the user to run the code or not. | [copilot.ps1](./Public/copilot.ps1)
+| Get-GPT3Completion - alias `gpt` | Get a completion from the OpenAI GPT-3 API | [Get-GPT3Completion.ps1](./Public/Get-GPT3Completion.ps1)
+| Invoke-AIErrorHelper | Helper function let ChatGPT add more info about errors | [Invoke-AIErrorHelper.ps1](./Public/Invoke-AIErrorHelper.ps1)
+| Invoke-AIExplain | Utilizes the OpenAI GPT-3 API to offer explanations for the most recently run command, and more. | [Invoke-AIExplain.ps1](./Public/Invoke-AIExplain.ps1)
+| Get-OpenAIEdit | Given a prompt and an instruction, the model will return an edited version of the prompt | [Get-OpenAIEdit.ps1](./Public/Get-OpenAIEdit.ps1)
+| Get-DalleImage | Get an image from the OpenAI DALL-E API | [Get-DalleImage.ps1](./Public/Get-DalleImage.ps1)
+| Get-AOAIDalleImage | Get an image from the Azure OpenAI DALL-E API | [Get-AOAIDalleImage.ps1](./Public/Get-AOAIDalleImage.ps1)
+| Set-DalleImageAsWallpaper | Set the image from the OpenAI DALL-E API as the wallpaper | [Set-DalleImageAsWallpaper.ps1](./Public/Set-DalleImageAsWallpaper.ps1)
+| Get-OpenAIUsage |Returns a billing summary of OpenAI API usage for your organization
+| Disable-AIShortCutKey | Disable the <kbd>ctrl+g</kbd> shortcut key go getting completions | [Disable-AIShortCutKey.ps1](./Public/Disable-AIShortCutKey.ps1) |
+| Enable-AIShortCutKey | Enable the <kbd>ctrl+g</kbd> | [Enable-AIShortCutKey.ps1](./Public/Enable-AIShortCutKey.ps1) |
 
 | PS Script                        | Description                                                                                                              | Location                                                                |
 | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------- |
@@ -373,3 +415,18 @@ Get-DalleImage -Description "<description>" -Orientation "landscape" -Quality "h
 In DALL-E 3, `-Orientation` determines the aspect ratio and size of the image (`landscape` will produce `1792x1024`, `portrait` `1024x1792`, and `square` `1024x1024`). The `-Quality` parameter allows you to specify image quality as either `"hd"` (high definition) or `"standard"`, and the `-Style` parameter lets you choose the visual style of the image - `"natural"` for realistic images or `"vivid"` for more dramatic imagery. The `-ModelVersion` should be set to `"3"`.
 
 For both versions, replace `<description>` with a text description of the image you want to generate. The generated image will be saved to a temporary file, and the path to this file will be returned by the function.
+=======
+## Azure OpenAI DALL-E
+
+Azure OpenAI DALL-E provides additional options for text to image generation. Images will by default be put in an Images directory under your script path.
+
+- Use -Images to specify how many images to generate for the same description
+- Use -Raw to return the raw image data and not output to a PNG file
+
+```powershell
+Get-AOAIDalleImage -Description "a painting of the Sydney Opera house in the style of Rembrant on a sunny day"
+```
+
+```powershell
+Get-AOAIDalleImage -Description "a painting of the Sydney Opera house in the style of Rembrant on a sunny day" -Images 3
+```
